@@ -5,6 +5,10 @@ What is it?
 -----------
 **MOIRA**, the <b>M</b>OIRA <b>O</b>tto-matic <b>I</b>ntelligent <b>R</b>econniter of <b>A</b>ssets, is an API for the [Marketwatch Virtual Stock Exchange game](http://www.marketwatch.com/game). It provides methods to buy and sell stock, as well as get prices of stock in realtime. This permits one to use quant methods on the Marketwatch VSE - providing a testing ground for algorithms, or merely for the enjoyment of programmatically winning a virtual stock market game.
 
+Who's [Moira](http://fallout.wikia.com/wiki/Moira_Brown)?
+------------
+The [Megaton](http://fallout.wikia.com/wiki/Megaton) merchant from [Fallout 3](http://en.wikipedia.org/wiki/Fallout_3).
+
 License
 -------
 This program (and all accompanying code) is licensed by the author under the terms of the [WTFPL](http://www.wtfpl.net/).
@@ -26,6 +30,10 @@ In the works:
 -------------
 * Curses-based stock trading interface
 * Limit orders and natural-language queries
+
+Documentation
+-------------
+An HTML, as well as PDF [Epydoc](http://epydoc.sourceforge.net/)-generated API reference is in the `/docs` directory.
 
 Getting started
 ---------------

@@ -1,5 +1,8 @@
 """MOIRA, the MOIRA Otto-matic Intelligent Reconniter of Assets, is an API for the
-Marketwatch Virtual Stock Exchange game."""
+Marketwatch Virtual Stock Exchange game.
+
+Code is available on U{Github<http://github.com/brandonwu/moira>}.
+"""
 __docformat__ = "epytext en"
 
 import requests
@@ -242,6 +245,7 @@ def sell_stock(token, game, id, amt):
 	@param token: Cookiejar returned by L{get_token}.
 	@param game: Game name (marketwatch.com/game/I{XXXXXXX})
 	@param id: Security ID (not the ticker symbol). Obtain from L{stock_search}
+	@param amt: Amount of stock to sell.
 	@return: Returns integer - 0 if success, nonzero if failure.
 	@rtype: integer
 	"""
