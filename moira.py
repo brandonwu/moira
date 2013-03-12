@@ -1,44 +1,57 @@
+"""MOIRA, the MOIRA Otto-matic Intelligent Reconniter of Assets, is an API for the
+Marketwatch Virtual Stock Exchange game."""
+__docformat__ = "epytext en"
+
 import requests
 import logging
 import re #Regex to clean up parsed out numbers
 import json #Send/buy requests are JSON-encoded
+from datetime import datetime
+from dateutil import tz
 from bs4 import BeautifulSoup
 
-#Remove the root logger's default output handler
-root = logging.getLogger()
-if root.handlers:
-    for handler in root.handlers:
-        root.removeHandler(handler)
+if __name__ == "__main__":
+	"""TODO: Put unit tests here or something.
+	@exclude:
+	"""
+	print("This is a Python module, to be imported into your own programs.\n"
+	      'Use `import moira` in the interactive interpreter or your scripts.')
+
 #Initialize logging
 logger = logging.getLogger('default')
+"""@exclude:"""
 logger.propagate = False
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 #Initialize console output handler
 ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
+"""@exclude:"""
+ch.setLevel(logging.DEBUG)
 #Initialize log formatter
 formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
+"""@exclude:"""
 ch.setFormatter(formatter)
 logger.addHandler(ch)
+
+#Timezone conversion
+from_zone = tz.gettz('UTC')
+to_zone = tz.gettz('America/New_York')
 
 #Class it up so we'll be able to do portfolio.stock['EXCHANGETRADEDFUND-XASQ-IXJ'].price
 #TODO: implement portfolio class
 class Portfolio():
 	"""Stores portfolio data.
 
-	:param time: server time from headers
-	:param stock: dict of stock objects keyed on id
-	:param cash: current cash remaining
-	:param leverage: current amount left under borrowing limit
-	:param net_worth: sum of assets and liabilities
-	:param purchasing_power: amount (credit + cash) left to purchase
-	:param starting_cash: cash amount provided at game start
-	:param return_amt: amount of return obtained from trading
+	@param time: Last updated time (server time from HTTP headers).
+	@param cash: Amount of I{cash} (not purchasing power!) remaining.
+	@param leverage: Amount available to borrow.
+	@param net_worth: Sum of assets and liabilities.
+	@param purchasing_power: Amount (credit + cash) available to buy.
+	@param starting_cash: Cash amount provided at game start.
+	@param return_amt: Dollar amount of returns over L{starting_cash}.
 	"""
-	def __init__(self, time, stocks, cash, leverage, net_worth,
-		     purchasing_power, starting_cash, return_amt):
+	def __init__(self, time, cash, leverage, net_worth, purchasing_power,
+		     starting_cash, return_amt):
 		self.time = time
-		self.stocks = stocks
 		self.cash = cash
 		self.leverage = leverage
 		self.net_worth = net_worth
@@ -50,15 +63,15 @@ class Portfolio():
 class Stock():
 	"""Stores portfolio data for a single stock.
 
-	:param token: auth token (used to get purchase price and ROI)
-	:param id: unique id assigned by marketwatch to each security
-	:param ticker: stock symbol
-	:param security_type: "ExchangeTradedFund" or "Stock"
-	:param current_price: current price per share
-	:param shares: number of shares held
-	:param purchase_type: "Buy" or "Short"
-	:param return: ROI
-	x:param purchase_price: price at time of purchase
+	@param id: Unique ID assigned by Marketwatch to each security.
+	@param ticker: The ticker symbol of the stock.
+	@param security_type: "ExchangeTradedFund" or "Stock"
+	@param current_price: Current price per share, I{rounded to the cent}.
+	@param shares: Number of shares held.
+	@param purchase_type: "Buy" or "Short"
+	@param returns: Total return on your investment.
+	@param purchase_price: Price at time of purchase.
+	@see See the warnings at L{get_current_holdings} about price rounding.
 	"""
 	def __init__(self, id, ticker, security_type, current_price, shares,
 		     purchase_type, returns): #purchase_price
@@ -74,12 +87,12 @@ class Stock():
 class Trans():
 	"""Stores transaction data for a single transaction.
 
-	:param ticker: the ticker symbol of the security
-	:param order_time: the time the order was issued
-	:param trans_time: the time the order was executed
-	:param trans_type: "Buy", "Short", "Sell", or "Cover"
-	:param trans_amt: number of shares sold/purchased
-	:param exec_price: price of security at time of order
+	@param ticker: The ticker symbol of the security.
+	@param order_time: The time the order was issued.
+	@param trans_time: The time the order was executed.
+	@param trans_type: "Buy", "Short", "Sell", or "Cover"
+	@param trans_amt: Number of shares sold/purchased.
+	@param exec_price: Price of security at time of order.
 	"""
 	def __init__(self, ticker, order_time, trans_time, trans_type,
 		     trans_amt, exec_price):
@@ -91,11 +104,15 @@ class Trans():
 		self.exec_price = exec_price
 
 def get_token(username, password):
-	"""Issues a login request, returns auth cookiejar. Nom nom nom!
+	"""Issues a login request. The token returned by this function
+	is required for all methods in this module.
 
-	:param username: the marketwatch.com username (email)
-	:param password: the plaintext marketwatch.com password
-	:returns: Requests cookiejar containing authentication token
+	@param username: The marketwatch.com username (email).
+	@param password: The plaintext marketwatch.com password.
+	@return: Requests cookiejar containing authentication token.
+	@note: It's unknown what the expiry time for this token is - it is
+	       set to expire at end of session. It may be apt to request
+	       a new token daily, while the market is closed.
 	"""
 	userdata = {
 		"userName": username,
@@ -115,12 +132,18 @@ def get_token(username, password):
 		logger.warn("Auth failure.")
 	return s.cookies
 
-def get_stocksdict(token, game):
-	"""Fetches and parses current holdings, returns dict.
+def get_current_holdings(token, game):
+	"""Fetches and parses current holdings.
 
-	:param token: cookiejar returned by a call to get_token()
-	:param game: the name of the game (marketwatch.com/game/XXXXXXX)
-	:returns: portfolio object
+	@param token: Cookiejar returned by a call to L{get_token}.
+	@param game: The X{name} of the game (marketwatch.com/game/I{XXXXXXX}).
+	@return: L{Stock} data.
+	@rtype: Dict of L{Stock} objects, keyed by X{id}
+	@warning: The stock price returned by a call to L{get_current_holdings}
+	    is rounded to the nearest cent! This results in inaccuracies if you
+	    calculate things based on this number --- don't. Use L{stock_search}
+	    instead. Interestingly, Marketwatch itself never reports the full-
+	    precision stock price anywhere except in HTML attributes.
 	"""
 	url = ("http://www.marketwatch.com/game/%s/portfolio/holdings"
 	"?view=list&partial=True") % game
@@ -152,11 +175,12 @@ def get_stocksdict(token, game):
 	return stock_dict
 
 def get_transaction_history(token, game):
-	"""Downloads and parses past transactions, returns Trans object
+	"""Downloads and parses the list of past transactions.
 
-	:param token: cookiejar returned by get_token
-	:param game: game name, marketwatch.com/game/XXXXXXX
-	:returns: Trans object
+	@param token: Cookiejar returned by L{get_token}.
+	@param game: The X{name} of the game (marketwatch.com/game/I{XXXXXXX}).
+	@return: A dict of all past transactions.
+	@rtype: Dict of L{Trans} objects, keyed on an index (1, 2...).
 	"""
 	orders_url = ("http://www.marketwatch.com/game/msj-2013/portfolio/"
 		      "transactionhistory?sort=TransactionDate&descending="
@@ -175,41 +199,66 @@ def get_transaction_history(token, game):
 		ordersoup = BeautifulSoup(r)
 
 def stock_search(token, game, ticker):
-	"""Searches for stock price and ID of a given ticker
+	"""Queries Marketwatch for stock price and ID of a given ticker symbol.
 
-	:param token: cookiejar returned by get_token
-	:param ticker: ticker symbol
-	:returns: {'price': current price, 'id': Fuid, 'time': server time}
+	@param token: Cookiejar returned by L{get_token}.
+	@param game: Game name (marketwatch.com/game/I{XXXXXXX}).
+	@param ticker: Ticker symbol of stock to query.
+	@return: Current stock price, stock id, and server time.
+	@rtype: Dict {'price':float,
+		'symbol':str,
+		'time':I{datetime} object in EST}.
 	"""
 	s = requests.Session()
-	search_url = 'http://www.marketwatch.com/game/msj-2013/trade?week=1'
+	search_url = 'http://www.marketwatch.com/game/%s/trade?week=1' % game
 	postdata = {'search': ticker, 'view': 'grid', 'partial': 'true'}
-	soup = BeautifulSoup(s.post(search_url, data=postdata,
-				    cookies=token).text)
+	r = s.post(search_url, data=postdata, cookies=token)
+	soup = BeautifulSoup(r.text)
+	time = datetime.strptime(r.headers['date'],'%a, %d %b %Y %H:%M:%S %Z')
+	time = time.replace(tzinfo=from_zone).astimezone(to_zone)
 	try:
 		price = float(soup.find('div',{'class': 'chip'})['data-price'])
-	except KeyError:
-		logger.error('Stock data query failed, check token and retry.')
+		symbol = soup.find('div',{'class': 'chip'})['data-symbol']
+		dict = {'price': price, 'symbol': symbol, 'time': time}
+		return dict
+	except TypeError:
+		logger.error('Invalid game.')
+		logger.debug(r.headers)
+		logger.debug(r.text)
 		return 1
-	symbol = soup.find('div',{'class': 'chip'})['data-symbol']
-	dict = {'price': price, 'symbol': symbol}
-	return dict
+	except KeyError:
+		logger.error('Unknown error.')
+		logger.debug(r.headers)
+		logger.debug(r.text)
+		return 1
 
-def get_portfolio(token, game):
+def get_portfolio_data(token, game):
 	print "hi"
 
-def sell(token, game, id, amt):
-	"""Sells a stock
-Post [{"Fuid":"EXCHANGETRADEDFUND-XASQ-IXJ","Shares":"100","Type":"Sell"}]
-http://www.marketwatch.com/game/msj-2013/trade/submitorder?week=1
-response:{"succeeded":true,"message":"Your order was submitted successfully"}
-"""
+def sell_stock(token, game, id, amt):
+	"""Initiates a sell order.
+
+	@param token: Cookiejar returned by L{get_token}.
+	@param game: Game name (marketwatch.com/game/I{XXXXXXX})
+	@param id: Security ID (not the ticker symbol). Obtain from L{stock_search}
+	@return: Returns integer - 0 if success, nonzero if failure.
+	@rtype: integer
+	"""
 	s = requests.Session()
 	order_url = 'http://www.marketwatch.com/game/msj-2013/trade/' \
 		    'submitorder?week=1'
-	postdata = JSONEncoder().encode({'Fuid': id,
-					 'Shares': str(amt),
-					 'Type': 'Sell'})
-	resp = BeautifulSoup(s.post(order_url, data=postdata,
-				    cookies=token).text)
-	
+	postdata = '['+json.dumps({'Fuid': id, 'Shares': str(amt), \
+				   'Type': 'Sell'})+']'
+	headers = {'X-Requested-With': 'XMLHttpRequest',
+		   'Content-Type': 'application/json',
+		   'charset': 'UTF-8'}
+	resp = json.loads(s.post(order_url, data=postdata, cookies=token,
+				 headers=headers).text)
+	if resp['succeeded'] == True:
+		logger.info('Sell order succeeded. Server said: %s' \
+			    % resp['message'])
+		return 0
+	else:
+		logger.error('Sell order failed. Server said: %s' \
+			     % resp['message'])
+		return 1
