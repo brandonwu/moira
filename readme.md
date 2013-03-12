@@ -24,15 +24,22 @@ In progress:
 ------------
 * Get portfolio data (cash left, returns, ranking, etc.)
 * Get transaction and order history
+* Simple moving-average-based trader
 
 In the works:
 -------------
 * Curses-based stock trading interface
 * Limit orders and natural-language queries
 
+What's included?
+----------------
+* The MOIRA module
+* An example program, `price_check_sample.py`, that gets you a continuously-updating stock quote on a given stock
+ * Sample usage: `python price_check_sample.py -u username@example.com -g game-name ZNGA` on first run, `python price_check_sample.py -tg game-name ZNGA` is sufficient for any subsequent ones
+
 Documentation
 -------------
-An HTML, as well as PDF [Epydoc](http://epydoc.sourceforge.net/)-generated API reference is in the `/docs` directory.
+An HTML, as well as PDF [Epydoc](http://epydoc.sourceforge.net/)-generated API reference is in the `/docs` directory. [link to pdf](https://github.com/brandonwu/moira/blob/master/docs/api.pdf?raw=true)
 
 Getting started
 ---------------
@@ -104,7 +111,7 @@ Or even this:
 
 You get the point.
 
-To sell, buy, short, or cover, it's just as simple. However, right now, since the portfolio data acquisition function isn't implemented yet, no checking is done to see if you have enough cash and credit to purchase the stock; the server will just give you a failed error message.
+To sell, buy, short, or cover, it's just as simple. However, right now, since the portfolio data acquisition function isn't implemented yet, no checking is done to see if you have enough cash and credit to purchase the stock; the server might or might not give you an error message (caveat, sometimes it actually tells you that the order succeeded!).
 
 Note that the order operation type is capitalized.
 ```python
@@ -112,4 +119,6 @@ Note that the order operation type is capitalized.
 2013-03-11 19:32:31,806 INFO: Sell order succeeded. Server said: Your order was successfully submitted
 ```
 
-Questions, comments, criticisms, enhancements? Open an issue, make a pull request, you know what to do.
+Questions, comments, criticisms, enhancements?
+----------------------------------------------
+Open an issue/make a pull request/etc.

@@ -209,7 +209,7 @@ def stock_search(token, game, ticker):
 	@param ticker: Ticker symbol of stock to query.
 	@return: Current stock price, stock id, and server time.
 	@rtype: Dict {'price':float,
-		'symbol':str,
+		'id':str,
 		'time':I{datetime} object in EST}.
 	"""
 	s = requests.Session()
@@ -222,28 +222,33 @@ def stock_search(token, game, ticker):
 	try:
 		price = float(soup.find('div',{'class': 'chip'})['data-price'])
 		symbol = soup.find('div',{'class': 'chip'})['data-symbol']
-		dict = {'price': price, 'symbol': symbol, 'time': time}
+		dict = {'price': price, 'id': symbol, 'time': time}
 		return dict
-	except TypeError:
+	except:
+		pass
+"""	except TypeError:
 		logger.error('Invalid game.')
-		logger.debug(r.headers)
-		logger.debug(r.text)
-		return 1
 	except KeyError:
 		logger.error('Unknown error.')
+	except:
 		logger.debug(r.headers)
 		logger.debug(r.text)
-		return 1
-
+		pass
+"""
 def get_portfolio_data(token, game):
 	print "hi"
 
 def order(token, game, type, id, amt):
 	"""Initiates a buy, sell, short, or cover order.
 
+	@warning: If you have insufficient funds, the server may still
+		  respond that the order succeeded! Check the order and
+		  transaction list to make sure the order actually went
+		  through.
 	@param token: Cookiejar returned by L{get_token}.
 	@param game: Game name (marketwatch.com/game/I{XXXXXXX})
-	@param id: Security ID (not the ticker symbol). Obtain from L{stock_search}
+	@param id: Security ID (not the ticker symbol).
+		   Obtain from L{stock_search}
 	@param amt: Order amount.
 	@param type: Type of order - 'Sell', 'Buy', 'Short', or 'Cover'.
 	@return: Returns integer - 0 if success, nonzero if failure.
