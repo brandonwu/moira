@@ -201,6 +201,7 @@ def get_transaction_history(token, game):
 def stock_search(token, game, ticker):
 	"""Queries Marketwatch for stock price and ID of a given ticker symbol.
 
+	@note: You must have joined a game in order to use this function.
 	@param token: Cookiejar returned by L{get_token}.
 	@param game: Game name (marketwatch.com/game/I{XXXXXXX}).
 	@param ticker: Ticker symbol of stock to query.
