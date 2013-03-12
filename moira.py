@@ -1,5 +1,4 @@
-"""MOIRA, the MOIRA Otto-matic Intelligent Reconniter of Assets, is an API for the
-Marketwatch Virtual Stock Exchange game.
+"""MOIRA, the MOIRA Otto-matic Intelligent Reconniter of Assets, is an API for the Marketwatch Virtual Stock Exchange game.
 
 Code is available on U{Github<http://github.com/brandonwu/moira>}.
 """
@@ -239,13 +238,14 @@ def stock_search(token, game, ticker):
 def get_portfolio_data(token, game):
 	print "hi"
 
-def sell_stock(token, game, id, amt):
-	"""Initiates a sell order.
+def order(token, game, type, id, amt):
+	"""Initiates a buy, sell, short, or cover order.
 
 	@param token: Cookiejar returned by L{get_token}.
 	@param game: Game name (marketwatch.com/game/I{XXXXXXX})
 	@param id: Security ID (not the ticker symbol). Obtain from L{stock_search}
-	@param amt: Amount of stock to sell.
+	@param amt: Order amount.
+	@param type: Type of order - 'Sell', 'Buy', 'Short', or 'Cover'.
 	@return: Returns integer - 0 if success, nonzero if failure.
 	@rtype: integer
 	"""
@@ -253,17 +253,17 @@ def sell_stock(token, game, id, amt):
 	order_url = 'http://www.marketwatch.com/game/msj-2013/trade/' \
 		    'submitorder?week=1'
 	postdata = '['+json.dumps({'Fuid': id, 'Shares': str(amt), \
-				   'Type': 'Sell'})+']'
+				   'Type': type})+']'
 	headers = {'X-Requested-With': 'XMLHttpRequest',
 		   'Content-Type': 'application/json',
 		   'charset': 'UTF-8'}
 	resp = json.loads(s.post(order_url, data=postdata, cookies=token,
 				 headers=headers).text)
 	if resp['succeeded'] == True:
-		logger.info('Sell order succeeded. Server said: %s' \
+		logger.info('Order succeeded. Server said: %s' \
 			    % resp['message'])
 		return 0
 	else:
-		logger.error('Sell order failed. Server said: %s' \
+		logger.error('Order failed. Server said: %s' \
 			     % resp['message'])
 		return 1

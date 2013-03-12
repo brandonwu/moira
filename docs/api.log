@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.3.11)  11 MAR 2013 21:43
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.3.11)  12 MAR 2013 02:00
 entering extended mode
  %&-line parsing enabled.
 **api.tex
@@ -608,7 +608,7 @@ LaTeX Font Info:    Try loading font information for T1+lmtt on input line 50.
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2
 
-] [3]) [4]
+] [3] [4])
 [5] (./api.ind [6
 
 
@@ -616,11 +616,11 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ]) (./api.aux (./moira-module.aux)) ) 
 Here is how much of TeX's memory you used:
  5244 strings out of 495062
- 74230 string characters out of 1182644
+ 74225 string characters out of 1182644
  144072 words of memory out of 3000000
  8270 multiletter control sequences out of 15000+50000
  73846 words of font info for 62 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,11n,43p,310b,350s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,11n,43p,310b,408s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on api.dvi (6 pages, 31640 bytes).
+Output written on api.dvi (6 pages, 31808 bytes).

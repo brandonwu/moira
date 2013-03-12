@@ -3,7 +3,6 @@ moira.ch	moira-module.html#ch
 moira.get_token	moira-module.html#get_token
 moira.get_current_holdings	moira-module.html#get_current_holdings
 moira.to_zone	moira-module.html#to_zone
-moira.sell_stock	moira-module.html#sell_stock
 moira.get_portfolio_data	moira-module.html#get_portfolio_data
 moira.from_zone	moira-module.html#from_zone
 moira.__package__	moira-module.html#__package__
@@ -11,6 +10,7 @@ moira.logger	moira-module.html#logger
 moira.formatter	moira-module.html#formatter
 moira.stock_search	moira-module.html#stock_search
 moira.get_transaction_history	moira-module.html#get_transaction_history
+moira.order	moira-module.html#order
 moira.Portfolio	moira.Portfolio-class.html
 moira.Portfolio.__init__	moira.Portfolio-class.html#__init__
 moira.Stock	moira.Stock-class.html

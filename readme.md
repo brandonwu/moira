@@ -18,13 +18,12 @@ What can it do?
 * Login
 * Obtain your current holdings in a stock game
 * Search for and obtain **real-time**, **fractional-accuracy** stock prices directly from Marketwatch
-* Sell stock
+* Buy, Sell, Short, and Cover stock
 
 In progress:
 ------------
 * Get portfolio data (cash left, returns, ranking, etc.)
 * Get transaction and order history
-* Buy stock
 
 In the works:
 -------------
@@ -105,9 +104,11 @@ Or even this:
 
 You get the point.
 
-To sell, (buying will be implemented soon!) it's just as simple. However, right now, since the portfolio data acquisition function isn't implemented yet, no checking is done to see if you have enough cash and credit to purchase the stock; the server will just give you a failed error message.
+To sell, buy, short, or cover, it's just as simple. However, right now, since the portfolio data acquisition function isn't implemented yet, no checking is done to see if you have enough cash and credit to purchase the stock; the server will just give you a failed error message.
+
+Note that the order operation type is capitalized.
 ```python
->>> moira.sell_shares(token, 'foo', 'STOCK-XNAS-GRPN', 100)
+>>> moira.order(token, 'foo', 'Sell', 'STOCK-XNAS-GRPN', 100)
 2013-03-11 19:32:31,806 INFO: Sell order succeeded. Server said: Your order was successfully submitted
 ```
 

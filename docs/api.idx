@@ -6,9 +6,9 @@
 \indexentry{moira \textit{(module)}!moira.get\_token \textit{(function)}|hyperpage}{2}
 \indexentry{moira \textit{(module)}!moira.get\_transaction\_history \textit{(function)}|hyperpage}{2}
 \indexentry{name|hyperpage}{3}
-\indexentry{moira \textit{(module)}!moira.sell\_stock \textit{(function)}|hyperpage}{3}
+\indexentry{moira \textit{(module)}!moira.order \textit{(function)}|hyperpage}{3}
 \indexentry{moira \textit{(module)}!moira.stock\_search \textit{(function)}|hyperpage}{3}
-\indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}|(hyperpage}{3}
+\indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}|(hyperpage}{4}
 \indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}!moira.Portfolio.\_\_init\_\_ \textit{(method)}|hyperpage}{4}
 \indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}|)hyperpage}{4}
 \indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}|(hyperpage}{4}
