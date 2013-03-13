@@ -26,13 +26,17 @@ logger.propagate = False
 logger.setLevel(logging.DEBUG)
 #Initialize console output handler
 ch = logging.StreamHandler()
+fh = logging.FileHandler('moira.log', mode='w')
 """@exclude:"""
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.INFO)
+fh.setLevel(logging.DEBUG)
 #Initialize log formatter
 formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
 """@exclude:"""
 ch.setFormatter(formatter)
+fh.setFormatter(formatter)
 logger.addHandler(ch)
+logger.addHandler(fh)
 
 #Timezone conversion
 from_zone = tz.gettz('UTC')
@@ -224,17 +228,21 @@ def stock_search(token, game, ticker):
 		symbol = soup.find('div',{'class': 'chip'})['data-symbol']
 		dict = {'price': price, 'id': symbol, 'time': time}
 		return dict
-	except:
-		pass
-"""	except TypeError:
-		logger.error('Invalid game.')
-	except KeyError:
-		logger.error('Unknown error.')
-	except:
+	except TypeError:
+		logger.error('Invalid game or Marketwatch rate-limiting.')
 		logger.debug(r.headers)
 		logger.debug(r.text)
 		pass
-"""
+	except KeyError:
+		logger.error('Marketwatch rate-limiting, automatically retrying.')
+		logger.debug(r.headers)
+		logger.debug(r.text)
+		pass
+	except Exception,e:
+		logger.debug(r.headers)
+		logger.debug(r.text)
+		pass
+
 def get_portfolio_data(token, game):
 	print "hi"
 
