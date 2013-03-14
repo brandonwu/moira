@@ -220,6 +220,10 @@ def stock_search(token, game, ticker):
 	search_url = 'http://www.marketwatch.com/game/%s/trade?week=1' % game
 	postdata = {'search': ticker, 'view': 'grid', 'partial': 'true'}
 	r = s.post(search_url, data=postdata, cookies=token)
+	if not r.status_code == 200:
+		logger.error('Server returned HTTP %s; probably rate-limiting.' \
+			     % r.status_code)
+		return 1
 	soup = BeautifulSoup(r.text)
 	time = datetime.strptime(r.headers['date'],'%a, %d %b %Y %H:%M:%S %Z')
 	time = time.replace(tzinfo=from_zone).astimezone(to_zone)
@@ -244,12 +248,25 @@ def stock_search(token, game, ticker):
 		pass
 
 def get_portfolio_data(token, game):
-	print "hi"
+	s = requests.Session()
+	portfolio_url = "http://www.marketwatch.com/game/%s/portfolio" % game
+	r = BeautifulSoup(s.get(portfolio_url, cookies=token).text)
+	time = datetime.strptime(r.headers['date'],'%a, %d %b %Y %H:%M:%S %Z')
+	time = time.replace(tzinfo=from_zone).astimezone(to_zone)
+	rank = int(r.find('p', {'class': 'rank'}).contents[0])
+	data = r.find_all('span', {'class': 'data'})
+	data = [ float(re.sub('[^\d\.]', '', x.contents[0])) for x in data ]
+	data_keys = ['net_worth', 'overall_return_amount', 'overall_return_percent',
+		     'daily_return_percent', 'purchasing_power', 'cash_left',
+		     'cash_borrowed', 'short_reserve']
+	data = dict(zip(data_keys, data))
+	data.update({'rank': rank})
+	return data
 
 def order(token, game, type, id, amt):
 	"""Initiates a buy, sell, short, or cover order.
 
-	@warning: If you have insufficient funds, the server may still
+	@warning: If you have insufficient funds, the server will still
 		  respond that the order succeeded! Check the order and
 		  transaction list to make sure the order actually went
 		  through.

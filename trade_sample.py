@@ -1,16 +1,15 @@
-"""This example program displays real-time, fractional prices for a selected ticker symbol."""
+"""This example program lets you trade a certain stock with single key shortcuts."""
 
 import argparse
 
-parser = argparse.ArgumentParser(description='demo to display stock prices of a given stock')
-parser.add_argument('ticker', help='the ticker symbol to get the price of')
+parser = argparse.ArgumentParser(description='demo to provide a trading interface')
+parser.add_argument('ticker', help='the ticker symbol to trade')
 mutex = parser.add_mutually_exclusive_group(required=True)
 mutex.add_argument('-u','--username', help='marketwatch.com username (email)')
 mutex.add_argument('-t','--cached-token', help='if previously cached login tokens are available, search for them in the default location and use them instead', action='store_true')
 
 parser.add_argument('-p','--password', help='marketwatch.com password (one will be prompted for if not supplied here)')
 parser.add_argument('-g','--game', help='name of stock game from marketwatch.com/game/XXXXXX', required=True)
-parser.add_argument('-n','--no-continuous', help='do not continuously display the current stock price', action='store_true')
 parser.add_argument('-r','--no-colors', help='disable colored output', action='store_true')
 
 args = parser.parse_args()
@@ -79,23 +78,63 @@ if args.cached_token:
 	with open('/tmp/.moira-token-cache', 'r') as f:
 		token = pickle.load(f)
 
-if args.no_continuous:
-	r = moira.stock_search(token, game, ticker)
-	r['time'] = timefmt.format(r['time'])
-	print(outputfmt % r)
+import sys
+
+try:
+    import tty, termios
+except ImportError:
+    # Probably Windows.
+    try:
+        import msvcrt
+    except ImportError:
+        # FIXME what to do on other platforms?
+        # Just give up here.
+        raise ImportError('getch not available')
+    else:
+        getch = msvcrt.getch
 else:
-	try:
-		while 1:
-			r = moira.stock_search(token, game, ticker)
-			tick = time.mktime(r['time'].timetuple())
-			if tick % 2:
-				sym = u'\u25cf'
-			else:
-				sym = u'\u25cb'
-			r['time'] = clr.dullgreen + sym + clr.end + ' ' + clr.pink + timefmt.format(r['time'])
-			print('\r\033[K' + outputfmt % r)
-			time.sleep(.1)
-	except KeyboardInterrupt:
-		sys.exit(2)
-	except Exception,e:
-		pass
+    def getch():
+        """getch() -> key character
+
+        Read a single keypress from stdin and return the resulting character. 
+        Nothing is echoed to the console. This call will block if a keypress 
+        is not already available, but will not wait for Enter to be pressed. 
+
+        If the pressed key was a modifier key, nothing will be detected; if
+        it were a special function key, it may return the first character of
+        of an escape sequence, leaving additional characters in the buffer.
+        """
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        return ch
+
+shares = raw_input("Number of shares to trade with: ")
+try:
+	while 1:
+		print("Single-key trading interface.\n"
+	      	"f - buy\n"
+	      	"d - sell\n"
+	      	"j - short\n"
+	      	"k - cover\n"
+		"q - quit")
+		key = getch()
+		try:
+			action = {'f': 'Buy',
+	 		'd': 'Sell',
+	 		'j': 'Short',
+	 		'k': 'Cover',
+			'q': 'Quit'}[key]
+			if key == 'q':
+				raise KeyboardInterrupt
+			print action
+			moira.order(token, game, action, ticker, shares)
+		except KeyError:
+			print("Invalid key.")
+			pass
+except KeyboardInterrupt:
+	sys.exit(1)
