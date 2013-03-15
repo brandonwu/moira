@@ -120,12 +120,15 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
+      <span class="summary-type">Dict with net_worth, overall_return_amount, overall_return_percent, 
+      daily_return_percent, purchasing_power, cash_left, cash_borrowed, 
+      short_reserve, rank, and time (last updated).</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="get_portfolio_data"></a><span class="summary-sig-name">get_portfolio_data</span>(<span class="summary-sig-arg">token</span>,
-        <span class="summary-sig-arg">game</span>)</span></td>
+          <td><span class="summary-sig"><a href="moira-module.html#get_portfolio_data" class="summary-sig-name">get_portfolio_data</a>(<span class="summary-sig-arg">token</span>,
+        <span class="summary-sig-arg">game</span>)</span><br />
+      Grabs portfolio data.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="moira-pysrc.html#get_portfolio_data">source&nbsp;code</a></span>
             
@@ -195,8 +198,7 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">Dict {'price':float, 'symbol':str, 'time':<i>datetime</i> object in 
-      EST}.</span>
+      <span class="summary-type">Dict {'price':float, 'id':str, 'time':<i>datetime</i> object in EST}.</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -233,14 +235,21 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="ch"></a><span class="summary-name">ch</span> = <code title="&lt;logging.StreamHandler object at 0x2bb4950&gt;">&lt;logging.StreamHandler object at 0x2bb4950&gt;</code>
+        <a name="ch"></a><span class="summary-name">ch</span> = <code title="&lt;logging.StreamHandler object at 0x2442a90&gt;">&lt;logging.StreamHandler object at 0x2442a90&gt;</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="formatter"></a><span class="summary-name">formatter</span> = <code title="&lt;logging.Formatter object at 0x2c29490&gt;">&lt;logging.Formatter object at 0x2c29490&gt;</code>
+        <a name="fh"></a><span class="summary-name">fh</span> = <code title="&lt;logging.FileHandler object at 0x24b35d0&gt;">&lt;logging.FileHandler object at 0x24b35d0&gt;</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="formatter"></a><span class="summary-name">formatter</span> = <code title="&lt;logging.Formatter object at 0x24b3810&gt;">&lt;logging.Formatter object at 0x24b3810&gt;</code>
     </td>
   </tr>
 <tr>
@@ -254,7 +263,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="logger"></a><span class="summary-name">logger</span> = <code title="&lt;logging.Logger object at 0x2ba8e50&gt;">&lt;logging.Logger object at 0x2ba8e50&gt;</code>
+        <a name="logger"></a><span class="summary-name">logger</span> = <code title="&lt;logging.Logger object at 0x2434f90&gt;">&lt;logging.Logger object at 0x2434f90&gt;</code>
     </td>
   </tr>
 <tr>
@@ -311,6 +320,41 @@
         class="link">stock_search</a> instead. Interestingly, Marketwatch 
         itself never reports the full- precision stock price anywhere 
         except in HTML attributes.
+      </p>
+</div></td></tr></table>
+</div>
+<a name="get_portfolio_data"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">get_portfolio_data</span>(<span class="sig-arg">token</span>,
+        <span class="sig-arg">game</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="moira-pysrc.html#get_portfolio_data">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Grabs portfolio data.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>token</code></strong> - Cookiejar returned by <a href="moira-module.html#get_token" 
+          class="link">get_token</a>.</li>
+        <li><strong class="pname"><code>game</code></strong> - Game name (marketwatch.com/game/<i>XXXXXXX</i>)</li>
+    </ul></dd>
+    <dt>Returns: Dict with net_worth, overall_return_amount, overall_return_percent, 
+      daily_return_percent, purchasing_power, cash_left, cash_borrowed, 
+      short_reserve, rank, and time (last updated).</dt>
+        <dd>Portfolio data dictionary</dd>
+  </dl>
+<div class="fields">      <p><strong>Note:</strong>
+        I probably won't be making this return a <a 
+        href="moira.Portfolio-class.html" class="link">Portfolio</a> 
+        object; it seems slightly redundant.
       </p>
 </div></td></tr></table>
 </div>
@@ -411,7 +455,12 @@
     <dt>Returns: integer</dt>
         <dd>Returns integer - 0 if success, nonzero if failure.</dd>
   </dl>
-</td></tr></table>
+<div class="fields">      <p><strong>Warning:</strong>
+        If you have insufficient funds, the server will still respond that 
+        the order succeeded! Check the order and transaction list to make 
+        sure the order actually went through.
+      </p>
+</div></td></tr></table>
 </div>
 <a name="stock_search"></a>
 <div>
@@ -439,8 +488,7 @@
         <li><strong class="pname"><code>game</code></strong> - Game name (marketwatch.com/game/<i>XXXXXXX</i>).</li>
         <li><strong class="pname"><code>ticker</code></strong> - Ticker symbol of stock to query.</li>
     </ul></dd>
-    <dt>Returns: Dict {'price':float, 'symbol':str, 'time':<i>datetime</i> object in 
-      EST}.</dt>
+    <dt>Returns: Dict {'price':float, 'id':str, 'time':<i>datetime</i> object in EST}.</dt>
         <dd>Current stock price, stock id, and server time.</dd>
   </dl>
 <div class="fields">      <p><strong>Note:</strong>
@@ -475,7 +523,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Mar 12 02:00:22 2013
+    Generated by Epydoc 3.0.1 on Thu Mar 14 20:19:34 2013
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

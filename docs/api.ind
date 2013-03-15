@@ -11,16 +11,16 @@
 		\hyperpage{2}
     \subitem moira.get\_token \textit{(function)}, \hyperpage{2}
     \subitem moira.get\_transaction\_history \textit{(function)}, 
-		\hyperpage{2}
+		\hyperpage{3}
     \subitem moira.order \textit{(function)}, \hyperpage{3}
     \subitem moira.Portfolio \textit{(class)}, \hyperpage{4}
       \subsubitem moira.Portfolio.\_\_init\_\_ \textit{(method)}, 
 		\hyperpage{4}
-    \subitem moira.Stock \textit{(class)}, \hyperpage{4}
+    \subitem moira.Stock \textit{(class)}, \hyperpage{4--5}
       \subsubitem moira.Stock.\_\_init\_\_ \textit{(method)}, 
-		\hyperpage{4}
+		\hyperpage{5}
     \subitem moira.stock\_search \textit{(function)}, \hyperpage{3}
-    \subitem moira.Trans \textit{(class)}, \hyperpage{4--5}
+    \subitem moira.Trans \textit{(class)}, \hyperpage{5}
       \subsubitem moira.Trans.\_\_init\_\_ \textit{(method)}, 
 		\hyperpage{5}
 

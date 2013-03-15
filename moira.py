@@ -250,6 +250,17 @@ def stock_search(token, game, ticker):
 		pass
 
 def get_portfolio_data(token, game):
+	"""Grabs portfolio data.
+
+	@param token: Cookiejar returned by L{get_token}.
+	@param game: Game name (marketwatch.com/game/I{XXXXXXX})
+	@return: Portfolio data dictionary
+	@rtype: Dict with net_worth, overall_return_amount, overall_return_percent,
+		daily_return_percent, purchasing_power, cash_left, cash_borrowed,
+		short_reserve, rank, and time (last updated).
+	@note: I probably won't be making this return a L{Portfolio} object; it seems
+	       slightly redundant.
+	"""
 	s = requests.Session()
 	portfolio_url = "http://www.marketwatch.com/game/%s/portfolio" % game
 	r = BeautifulSoup(s.get(portfolio_url, cookies=token).text)

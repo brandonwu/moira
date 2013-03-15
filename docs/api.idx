@@ -4,7 +4,7 @@
 \indexentry{id|hyperpage}{2}
 \indexentry{moira \textit{(module)}!moira.get\_portfolio\_data \textit{(function)}|hyperpage}{2}
 \indexentry{moira \textit{(module)}!moira.get\_token \textit{(function)}|hyperpage}{2}
-\indexentry{moira \textit{(module)}!moira.get\_transaction\_history \textit{(function)}|hyperpage}{2}
+\indexentry{moira \textit{(module)}!moira.get\_transaction\_history \textit{(function)}|hyperpage}{3}
 \indexentry{name|hyperpage}{3}
 \indexentry{moira \textit{(module)}!moira.order \textit{(function)}|hyperpage}{3}
 \indexentry{moira \textit{(module)}!moira.stock\_search \textit{(function)}|hyperpage}{3}
@@ -12,9 +12,9 @@
 \indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}!moira.Portfolio.\_\_init\_\_ \textit{(method)}|hyperpage}{4}
 \indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}|)hyperpage}{4}
 \indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}|(hyperpage}{4}
-\indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}!moira.Stock.\_\_init\_\_ \textit{(method)}|hyperpage}{4}
-\indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}|)hyperpage}{4}
-\indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}|(hyperpage}{4}
+\indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}!moira.Stock.\_\_init\_\_ \textit{(method)}|hyperpage}{5}
+\indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}|)hyperpage}{5}
+\indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}|(hyperpage}{5}
 \indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}!moira.Trans.\_\_init\_\_ \textit{(method)}|hyperpage}{5}
 \indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}|)hyperpage}{5}
 \indexentry{moira \textit{(module)}|)hyperpage}{5}
