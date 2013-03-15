@@ -19,10 +19,10 @@ What can it do?
 * Obtain your current holdings in a stock game
 * Search for and obtain **real-time**, **fractional-accuracy** stock prices directly from Marketwatch
 * Buy, Sell, Short, and Cover stock
+* Get portfolio data (cash left, returns, ranking, etc.)
 
 In progress:
 ------------
-* Get portfolio data (cash left, returns, ranking, etc.)
 * Get transaction and order history
 * Simple moving-average-based trader
 
@@ -36,20 +36,24 @@ What's included?
 * The MOIRA module
 * An example program, `price_check_sample.py`, that gets you a continuously-updating stock quote on a given stock
  * Sample usage: `python price_check_sample.py -u username@example.com -g game-name ZNGA` on first run, `python price_check_sample.py -tg game-name ZNGA` is sufficient for any subsequent ones
+* An example trading program, `trade_sample.py`, that provides a simple keystroke-based trading interface for efficient trades - use a terminal multiplexer like tmux and put this next to the output of `price_check_sample.py`.
+ * Sample usage: `python trade_sample.py -u username@example.com -g game-name STOCK-XNAS-ZNGA` on first run, `python trade_sample.py -tg game-name ZNGA` for subsequent times
 
 Documentation
 -------------
-An HTML, as well as PDF [Epydoc](http://epydoc.sourceforge.net/)-generated API reference is in the `/docs` directory. [link to pdf](https://github.com/brandonwu/moira/blob/master/docs/api.pdf?raw=true)
+An HTML, as well as PDF [Epydoc](http://epydoc.sourceforge.net/)-generated API reference is in the `/docs` directory.
+
+<font size=14>[Direct link to PDF documentation](https://github.com/brandonwu/moira/blob/master/docs/api.pdf?raw=true)</font>
 
 Getting started
 ---------------
-This Python module requires the `Requests`, `dateutil`, and `BeautifulSoup` modules. Install them from your favorite package manager - for Ubuntu and friends:
+This Python module requires the `Requests`, `dateutil`, and `BeautifulSoup` modules (`Requests` for HTTP requests, `dateutil` for server time conversion, and `BeautifulSoup` for parsing pages). Install them from your favorite package manager - for Ubuntu and friends:
 
 ```bash
 sudo apt-get install python-requests python-dateutil python-beautifulsoup
 ```
 
-After that, you can try it out in the interpreter (example scripts coming soon).
+After that, you can try it out in the interpreter.
 
 ```bash
 ubuntu@bigmac ~ $ cd moira
@@ -79,7 +83,7 @@ Try getting your current holdings with the `get_current_holdings()` function. Yo
 ```
 The `get_current_holdings()` function returns a dictionary of Stock objects. Stock objects have the following attributes:
 * id - Unique ID assigned by Marketwatch to each security.
- * Most functions in this module use this ID to refer uniquely to securities (the one exception, of course, is the function that allows you to look up the ID of a stock or ETF).
+ * Most functions in this module use this ID to refer uniquely to securities (the one exception, of course, is `stock_search()`, which allows you to look up the ID of a stock or ETF).
 * ticker - The ticker symbol of the stock.
 * security_type - "ExchangeTradedFund" or "Stock"
 * current_price - Current price per share, rounded to the cent.
@@ -111,7 +115,9 @@ Or even this:
 
 You get the point.
 
-To sell, buy, short, or cover, it's just as simple. However, right now, since the portfolio data acquisition function isn't implemented yet, no checking is done to see if you have enough cash and credit to purchase the stock; the server might or might not give you an error message (caveat, sometimes it actually tells you that the order succeeded!).
+To sell, buy, short, or cover, it's just as simple. However, right now, no checking is done to see if you have enough cash and credit to purchase the stock.
+
+**WARNING:** The server will report that the order was successfully submitted even if you have insufficient funds to make it! The only time the server emits errors is for invalid post parameters in the order request (which is unlikely, since you're using this library.)
 
 Note that the order operation type is capitalized.
 ```python
