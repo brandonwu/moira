@@ -56,7 +56,7 @@ class Portfolio():
 	@param return_amt: Dollar amount of returns over L{starting_cash}.
 	"""
 	def __init__(self, time, cash, leverage, net_worth, purchasing_power,
-		     starting_cash, return_amt):
+		     starting_cash, return_amt, rank):
 		self.time = time
 		self.cash = cash
 		self.leverage = leverage
@@ -64,6 +64,7 @@ class Portfolio():
 		self.purchasing_power = purchasing_power
 		self.starting_cash = starting_cash
 		self.return_amt = return_amt
+		self.rank = rank
 
 #TODO: implement purchase_price handling in Stock class
 class Stock():
@@ -131,6 +132,7 @@ def get_token(username, password):
 	s.get('http://www.marketwatch.com/')
 	s.post('https://secure.marketwatch.com/user/account/logon',
 		params=userdata)
+	#TODO: Turn this into something that checks the cookiejar for .ASPXAUTH instead; this takes WAY too long.
 	if s.get('http://www.marketwatch.com/user/login/status').url == \
 		"http://www.marketwatch.com/my":
 		logger.info("Login success.")
@@ -260,7 +262,7 @@ def get_portfolio_data(token, game):
 		     'daily_return_percent', 'purchasing_power', 'cash_left',
 		     'cash_borrowed', 'short_reserve']
 	data = dict(zip(data_keys, data))
-	data.update({'rank': rank})
+	data.update({'rank': rank, 'time': time})
 	return data
 
 def order(token, game, type, id, amt):

@@ -22,23 +22,23 @@ import time
 import sys
 
 class clr:
-    black = '\033[30m'
-    red = '\033[31m'
-    dullgreen = '\033[32m'
-    dullyellow = '\033[33m'
-    brown = '\033[34m'
-    peach = '\033[35m'
-    pink = '\033[36m'
-    peach2 = '\033[37m'
-    dullred = '\033[1;31m'
-    green = '\033[1;32m'
-    yellow = '\033[1;33m'
-    blue = '\033[1;34m'
-    fuchsia = '\033[1;35m'
-    goldenrod = '\033[1;36m'
-    white = '\033[1;37m'
-    end = '\033[0m'
-    def disable(self):
+	black = '\033[30m'
+	red = '\033[31m'
+	dullgreen = '\033[32m'
+	dullyellow = '\033[33m'
+	brown = '\033[34m'
+	peach = '\033[35m'
+	pink = '\033[36m'
+	peach2 = '\033[37m'
+	dullred = '\033[1;31m'
+	green = '\033[1;32m'
+	yellow = '\033[1;33m'
+	blue = '\033[1;34m'
+	fuchsia = '\033[1;35m'
+	goldenrod = '\033[1;36m'
+	white = '\033[1;37m'
+	end = '\033[0m'
+	def disable(self):
 		self.black = ''
 		self.red = ''
 		self.dullgreen = ''
@@ -89,14 +89,14 @@ except ImportError:
     except ImportError:
         # FIXME what to do on other platforms?
         # Just give up here.
-        raise ImportError('getch not available')
+        raise ImportError('error: lp0 on fire\nthis only works on linux and windows due to the method used to get single keypresses.')
     else:
         getch = msvcrt.getch
 else:
     def getch():
-        """getch() -> key character
-
-        Read a single keypress from stdin and return the resulting character. 
+        """Read a single keypress from stdin and return the resulting character. 
+	
+	@return: string containing pressed key
         Nothing is echoed to the console. This call will block if a keypress 
         is not already available, but will not wait for Enter to be pressed. 
 
@@ -113,26 +113,36 @@ else:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
 
-shares = raw_input("Number of shares to trade with: ")
+def _get_shares():
+	return raw_input("Number of shares to trade with: ")
+
+shares = _get_shares()
+
 try:
 	while 1:
 		print("Single-key trading interface.\n"
-	      	"f - buy\n"
-	      	"d - sell\n"
-	      	"j - short\n"
-	      	"k - cover\n"
-		"q - quit")
+	      	+ clr.dullgreen + "[d - sell] "
+	      	"[f - buy] " + clr.end +
+	      	clr.blue + "[j - short] "
+	      	"[k - cover]\n" + clr.end +
+		clr.peach + "[s - shares] "
+		"[q - quit]" + clr.end)
 		key = getch()
 		try:
 			action = {'f': 'Buy',
 	 		'd': 'Sell',
 	 		'j': 'Short',
 	 		'k': 'Cover',
-			'q': 'Quit'}[key]
+			's': '',
+			'q': ''}[key]
 			if key == 'q':
 				raise KeyboardInterrupt
-			print action
-			moira.order(token, game, action, ticker, shares)
+			if key == 's':
+				_get_shares()
+
+			if action:
+				print(clr.fuchsia + action + clr.end + ' ' + clr.green + shares + clr.peach + ' @ ' + clr.yellow + '$' + str(moira.stock_search(token, game, ticker.split('-')[2])['price']) + clr.end)
+				moira.order(token, game, action, ticker, shares)
 		except KeyError:
 			print("Invalid key.")
 			pass
