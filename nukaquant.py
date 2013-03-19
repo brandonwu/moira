@@ -8,12 +8,12 @@ class MovingAverage:
 	@param period: The number of samples to average; if the actual
 		       number of samples provided is less than this,
 		       the mavg attribute will be the simple average.
+	@ivar mavg: The moving average of the data added with L{add_value}.
 	"""
 	def __init__(self, period=30):
 		self.period = period
 		self.data = []
 		self.mavg = None
-		"""The moving average of the data added with add_value()."""
 
 	def _recalculate_average(self):
 		self.mavg = math.fsum(self.data) / len(self.data)

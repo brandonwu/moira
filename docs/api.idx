@@ -18,3 +18,13 @@
 \indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}!moira.Trans.\_\_init\_\_ \textit{(method)}|hyperpage}{5}
 \indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}|)hyperpage}{5}
 \indexentry{moira \textit{(module)}|)hyperpage}{5}
+\indexentry{nukaquant \textit{(module)}|(hyperpage}{6}
+\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}|(hyperpage}{6}
+\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}!nukaquant.Bollinger.\_\_init\_\_ \textit{(method)}|hyperpage}{6}
+\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}!nukaquant.Bollinger.get\_bollinger \textit{(method)}|hyperpage}{6}
+\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}|)hyperpage}{6}
+\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}|(hyperpage}{6}
+\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}!nukaquant.MovingAverage.\_\_init\_\_ \textit{(method)}|hyperpage}{6}
+\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}!nukaquant.MovingAverage.add\_value \textit{(method)}|hyperpage}{6}
+\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}|)hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}|)hyperpage}{7}

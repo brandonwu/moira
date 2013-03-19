@@ -77,7 +77,6 @@ class Stock():
 	@param shares: Number of shares held.
 	@param purchase_type: "Buy" or "Short"
 	@param returns: Total return on your investment.
-	@param purchase_price: Price at time of purchase.
 	@see See the warnings at L{get_current_holdings} about price rounding.
 	"""
 	def __init__(self, id, ticker, security_type, current_price, shares,

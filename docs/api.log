@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.3.11)  14 MAR 2013 20:19
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.3.11)  19 MAR 2013 16:15
 entering extended mode
  %&-line parsing enabled.
 **api.tex
@@ -510,7 +510,7 @@ File: pdfmark.def 2009/10/09 v6.79a Hyperref definitions for pdfmark specials
 
 
 Writing index file api.idx
-(./api.aux (./moira-module.aux))
+(./api.aux (./moira-module.aux) (./nukaquant-module.aux))
 \openout1 = `api.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
@@ -528,7 +528,8 @@ LaTeX Font Info:    ... okay on input line 82.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
 LaTeX Font Info:    ... okay on input line 82.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 82.
- (/usr/share/texmf/tex/latex/lm/t1lmr.fd
+
+(/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 Package hyperref Info: Link coloring ON on input line 82.
@@ -609,18 +610,42 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2
 
 ] [3] [4])
-[5] (./api.ind [6
+[5]
+\openout2 = `nukaquant-module.aux'.
+
+ (./nukaquant-module.tex [6
+
+
+]) [7] (./api.ind
+Overfull \hbox (1.5835pt too wide) in paragraph at lines 34--36
+[]| \T1/lmr/m/n/10 nukaquant.Bollinger.get_bollinger \T1/lmr/m/it/10 (method)\T
+1/lmr/m/n/10 , [][][][][][] 
+ []
+
+
+Overfull \hbox (7.5846pt too wide) in paragraph at lines 37--39
+[]| \T1/lmr/m/n/10 nukaquant.MovingAverage.__init__ \T1/lmr/m/it/10 (method)\T1
+/lmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (8.69576pt too wide) in paragraph at lines 39--41
+[]| \T1/lmr/m/n/10 nukaquant.MovingAverage.add_value \T1/lmr/m/it/10 (method)\T
+1/lmr/m/n/10 ,
+ []
+
+[8
 
 
 
-]) (./api.aux (./moira-module.aux)) ) 
+]) (./api.aux (./moira-module.aux) (./nukaquant-module.aux)) ) 
 Here is how much of TeX's memory you used:
- 5244 strings out of 495062
- 74225 string characters out of 1182644
- 143072 words of memory out of 3000000
- 8270 multiletter control sequences out of 15000+50000
+ 5268 strings out of 495062
+ 74710 string characters out of 1182644
+ 141951 words of memory out of 3000000
+ 8287 multiletter control sequences out of 15000+50000
  73846 words of font info for 62 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,11n,43p,310b,350s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,11n,43p,299b,394s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on api.dvi (6 pages, 32764 bytes).
+Output written on api.dvi (8 pages, 45844 bytes).

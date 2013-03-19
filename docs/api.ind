@@ -27,5 +27,16 @@
   \indexspace
 
   \item name, \hyperpage{2, 3}
+  \item nukaquant \textit{(module)}, \hyperpage{6--7}
+    \subitem nukaquant.Bollinger \textit{(class)}, \hyperpage{6}
+      \subsubitem nukaquant.Bollinger.\_\_init\_\_ \textit{(method)}, 
+		\hyperpage{6}
+      \subsubitem nukaquant.Bollinger.get\_bollinger \textit{(method)}, 
+		\hyperpage{6}
+    \subitem nukaquant.MovingAverage \textit{(class)}, \hyperpage{6--7}
+      \subsubitem nukaquant.MovingAverage.\_\_init\_\_ \textit{(method)}, 
+		\hyperpage{6}
+      \subsubitem nukaquant.MovingAverage.add\_value \textit{(method)}, 
+		\hyperpage{6}
 
 \end{theindex}
