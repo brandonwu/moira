@@ -12,6 +12,7 @@ parser.add_argument('-p','--password', help='marketwatch.com password (one will 
 parser.add_argument('-g','--game', help='name of stock game from marketwatch.com/game/XXXXXX', required=True)
 parser.add_argument('-n','--no-continuous', help='do not continuously display the current stock price', action='store_true')
 parser.add_argument('-r','--no-colors', help='disable colored output', action='store_true')
+parser.add_argument('-l','--use-local-time', help='display system time instead of server time', action='store_true')
 
 args = parser.parse_args()
 
@@ -81,7 +82,10 @@ if args.cached_token:
 
 if args.no_continuous:
 	r = moira.stock_search(token, game, ticker)
-	r['time'] = timefmt.format(r['time'])
+	if not args.use_local_time:
+		r['time'] = timefmt.format(r['time'])
+	else:
+		r['time'] = time.ctime()
 	print(outputfmt % r)
 else:
 	try:
@@ -93,6 +97,8 @@ else:
 			else:
 				sym = u'\u25cb'
 			r['time'] = clr.dullgreen + sym + clr.end + ' ' + clr.pink + timefmt.format(r['time'])
+			if args.use_local_time:
+				r['time'] = time.ctime()
 			print('\r\033[K' + outputfmt % r)
 			time.sleep(.1)
 	except KeyboardInterrupt:

@@ -183,7 +183,7 @@ def get_current_holdings(token, game):
 	return stock_dict
 
 def get_transaction_history(token, game):
-	"""Downloads and parses the list of past transactions.
+	"""DOES NOT FUNCTION YET: Downloads and parses the list of past transactions.
 
 	@param token: Cookiejar returned by L{get_token}.
 	@param game: The X{name} of the game (marketwatch.com/game/I{XXXXXXX}).
@@ -240,7 +240,8 @@ def stock_search(token, game, ticker):
 		logger.debug(r.text)
 		pass
 	except KeyError:
-		logger.error('Marketwatch rate-limiting, automatically retrying.')
+		logger.error('Invalid stock ticker symbol provided, or '
+			     'Marketwatch rate-limiting.')
 		logger.debug(r.headers)
 		logger.debug(r.text)
 		pass
@@ -303,7 +304,7 @@ def order(token, game, type, id, amt):
 	resp = json.loads(s.post(order_url, data=postdata, cookies=token,
 				 headers=headers).text)
 	if resp['succeeded'] == True:
-		logger.info('Order succeeded. Server said: %s' \
+		logger.info('Order may have succeeded. Server said: %s' \
 			    % resp['message'])
 		return 0
 	else:
