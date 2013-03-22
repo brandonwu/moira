@@ -1,6 +1,7 @@
 """Nukaquant is a library for technical and quant analysis of stock data. It is intended to be used with its companion Marketwatch API library, moira."""
 
 import math
+from collections import deque
 
 class MovingAverage:
 	"""Calculates the moving average for a data stream.
@@ -8,6 +9,7 @@ class MovingAverage:
 	@param period: The number of samples to average; if the actual
 		       number of samples provided is less than this,
 		       the mavg attribute will be the simple average.
+	@ivar data: List of data inputted
 	@ivar mavg: The moving average of the data added with L{add_value}.
 	"""
 	def __init__(self, period=30):
@@ -42,10 +44,13 @@ class Bollinger:
 		self.mavg_obj = mavg_obj
 
 	def _recalculate_sd(self):
-		sum_x2 = math.fsum([x ** 2 for x in self.mavg_obj.data])
-		n = len(self.mavg_obj.data)
-		mean = self.mavg_obj.mavg
-		self.sd = math.sqrt((sum_x2 / n) - (mean ** 2)) 
+		self.sum_x2 = math.fsum([x ** 2 for x in self.mavg_obj.data])
+		self.n = len(self.mavg_obj.data)
+		self.mean = self.mavg_obj.mavg
+		#Take the absolute value before square rooting because
+		#sometimes there's binary rounding error and it ends up
+		#negative
+		self.sd = math.sqrt(math.fabs((self.sum_x2 / self.n) - (self.mean ** 2))) 
 
 	def get_bollinger(self):
 		"""Returns the high and low Bollinger bands.
@@ -60,3 +65,121 @@ class Bollinger:
 			     mean,
 			     mean + (mult * sd))
 		return bollinger
+
+class LocalExtrema:
+	"""Attempts to find price pivot points over a given interval
+	   in a stream of data.
+
+	@param auto_period: If true, this dynamically increases the
+			    period to fit price cycles.
+	@warning: L{auto_period} only increases the period.
+	@param period: Size of window for pivot point determination.
+	@ivar data: Current window of data inputted
+	@ivar high: Predicted current high point
+	@ivar low: Predicted current low point
+	@ivar slope: Current price direction
+	"""
+	def __init__(self, auto_period=False, period=20):
+		self.period = period
+		self.auto_period = auto_period
+		self.data = []
+		self.high = 0
+		self.low = 0
+
+	def _recalculate_extrema(self):
+		self.phigh = self.high
+		self.high = max(self.data)
+		self._highcount = self.data.count(self.high)
+		self.plow = self.low
+		self.low = min(self.data)
+		self._lowcount = self.data.count(self.low)
+
+	def _auto_period(self):
+		if self.high == self.low and not len(self.data) < self.period:
+			self.high = self.phigh
+			self.low = self.plow
+			self.period += 10
+
+	def _recalculate_derivatives(self):
+		datasub = self.data[1:-1]
+		data = self.data[0:-2]
+		self._derivatives = [x - y for x,y in zip(data,datasub)]
+
+	def _flush_old_data(self):
+		if len(self.data) > self.period:
+			del self.data[0:len(self.data)-self.period]
+
+	def add_value(self, value):
+		self.data.append(value)
+		self._flush_old_data()
+		self._recalculate_derivatives()
+		self._recalculate_extrema()
+		if self.auto_period:
+			self._auto_period()
+
+class OrderQueue:
+	"""Trying this out. Don't use it yet."""
+	def __init__(self):
+		self.orderdata = deque()
+
+	def add_order(self, position, type, amount, id):
+		"""Adds an order to the OrderQueue.
+
+		@param position: When to execute the order ('high' or 'low')
+		@param type: 'Buy', 'Sell', 'Short', or 'Cover'.
+		@param amount: Number of securities to order.
+		@param id: Marketwatch Fuid of security.
+		"""
+		check = self._check_order(position, type, amount, id)
+		if check[0]:
+			self.orderdata.append({'position': position,
+					       'type': type,
+					       'amount': amount,
+					       'id': id})
+			return True
+		else:
+			return False, check[1]
+
+	def _check_order(self, position, type, amount, id):
+		"""Checks the order you're adding against the next-executing order in the queue.
+
+		@return: True if the order is valid and False if the order is not
+		"""
+	#What we don't want - repeated orders (BUY BUY BUY BUY BUY)
+	#		    - orders that don't work in sequence (BUY then COVER)
+	#resolution policy is first come, first served - kick the newer older out
+		#types = [x['type'] for x in self.orderdata]
+		currentamount = amount
+		currenttype = type
+		if not len(self.orderdata):
+			if not (currenttype == 'Buy' or currenttype == 'Short'):
+				return False, "First order must be Buy or Short"
+			else:
+				return True, True
+
+		checkorder = self.orderdata[-1]
+		checktype = checkorder['type']
+		checkamount = checkorder['amount']
+		if currenttype == checkorder['type']:
+		#can't have multiple buy/short orders in a row (disallowed by marketwatch since it can't keep track of multiple purchase prices)
+		#our strategies don't require selling and shorting part of holdings, so that's arbitrarily not allowed either
+			return False, "Can't have multiples of the same order sequentially"
+		else:
+			if currenttype == 'Sell' and checktype != 'Buy':
+			#can't sell without having bought
+				return False, "Can't sell without having bought"
+			if currenttype == 'Cover' and checktype != 'Short':
+			#can't cover without having shorted
+				return False, "Can't cover without having shorted"
+			if (currenttype == 'Buy' or currenttype == 'Short') and (checktype != 'Cover' or checktype != 'Sell'):
+			#can't buy or short without having covered or sold all holdings prior
+				return False, "Can't buy or short without having covered or sold"
+			if checkamount == currentamount:
+				return True, True
+			else:
+				return False, "Amount not equal"
+
+
+	#def get_latest_order(self):
+
+	#def execute_latest_order(self):
