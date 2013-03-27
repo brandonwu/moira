@@ -1,7 +1,6 @@
 """Nukaquant is a library for technical and quant analysis of stock data. It is intended to be used with its companion Marketwatch API library, moira."""
 
 import math
-from collections import deque
 
 class MovingAverage:
 	"""Calculates the moving average for a data stream.
@@ -72,16 +71,18 @@ class LocalExtrema:
 
 	@param auto_period: If true, this dynamically increases the
 			    period to fit price cycles.
-	@warning: L{auto_period} only increases the period.
+	@param max_period: The max value that L{auto_period} will increase
+			   the period to.
 	@param period: Size of window for pivot point determination.
 	@ivar data: Current window of data inputted
 	@ivar high: Predicted current high point
 	@ivar low: Predicted current low point
 	@ivar slope: Current price direction
 	"""
-	def __init__(self, auto_period=False, period=20):
+	def __init__(self, auto_period=False, period=20, max_period=100):
 		self.period = period
 		self.auto_period = auto_period
+		self.max_period = max_period
 		self.data = []
 		self.high = 0
 		self.low = 0
@@ -98,7 +99,9 @@ class LocalExtrema:
 		if self.high == self.low and not len(self.data) < self.period:
 			self.high = self.phigh
 			self.low = self.plow
-			self.period += 10
+			self.period += 1
+		if self.period >= self.max_period:
+			self.period = self.max_period
 
 	def _recalculate_derivatives(self):
 		datasub = self.data[1:-1]
@@ -118,37 +121,37 @@ class LocalExtrema:
 			self._auto_period()
 
 class OrderQueue:
-	"""Trying this out. Don't use it yet."""
-	def __init__(self):
-		self.orderdata = deque()
+	"""Trying this out. Don't use it yet.
 
-	def add_order(self, position, type, amount, id):
+	@ivar nextaction: When the next order is scheduled.
+	"""
+	def __init__(self):
+		self.orderdata = []
+
+	def add_order(self, position, type, amount, price):
 		"""Adds an order to the OrderQueue.
 
 		@param position: When to execute the order ('high' or 'low')
 		@param type: 'Buy', 'Sell', 'Short', or 'Cover'.
 		@param amount: Number of securities to order.
-		@param id: Marketwatch Fuid of security.
 		"""
-		check = self._check_order(position, type, amount, id)
+		check = self._check_order(position, type, amount)
 		if check[0]:
 			self.orderdata.append({'position': position,
 					       'type': type,
 					       'amount': amount,
-					       'id': id})
+					       'price': price})
+			self.nextaction = position
+			self.pendingorders = True
 			return True
 		else:
 			return False, check[1]
 
-	def _check_order(self, position, type, amount, id):
+	def _check_order(self, position, type, amount):
 		"""Checks the order you're adding against the next-executing order in the queue.
 
 		@return: True if the order is valid and False if the order is not
 		"""
-	#What we don't want - repeated orders (BUY BUY BUY BUY BUY)
-	#		    - orders that don't work in sequence (BUY then COVER)
-	#resolution policy is first come, first served - kick the newer older out
-		#types = [x['type'] for x in self.orderdata]
 		currentamount = amount
 		currenttype = type
 		if not len(self.orderdata):
@@ -161,25 +164,31 @@ class OrderQueue:
 		checktype = checkorder['type']
 		checkamount = checkorder['amount']
 		if currenttype == checkorder['type']:
-		#can't have multiple buy/short orders in a row (disallowed by marketwatch since it can't keep track of multiple purchase prices)
-		#our strategies don't require selling and shorting part of holdings, so that's arbitrarily not allowed either
 			return False, "Can't have multiples of the same order sequentially"
 		else:
 			if currenttype == 'Sell' and checktype != 'Buy':
-			#can't sell without having bought
 				return False, "Can't sell without having bought"
 			if currenttype == 'Cover' and checktype != 'Short':
-			#can't cover without having shorted
 				return False, "Can't cover without having shorted"
-			if (currenttype == 'Buy' or currenttype == 'Short') and (checktype != 'Cover' or checktype != 'Sell'):
-			#can't buy or short without having covered or sold all holdings prior
-				return False, "Can't buy or short without having covered or sold"
-			if checkamount == currentamount:
-				return True, True
+			if (currenttype == 'Buy' or currenttype == 'Short') and \
+			   checktype != 'Cover' and checktype != 'Sell':
+				return False, "Can't buy or short without having" \
+				"covered or sold"
+			if currenttype == 'Sell' or currenttype == 'Cover':
+				if checkamount == currentamount:
+					return True, True
+				else:
+					return False, "Amount sold/covered must be" \
+					" equal to amount bought/shorted"
 			else:
-				return False, "Amount not equal"
+				return True, True
 
-
-	#def get_latest_order(self):
-
-	#def execute_latest_order(self):
+	def get_latest_order(self, position):
+		if len(self.orderdata):
+			for x in (self.orderdata):
+				if x['position'] == position:
+					self.orderdata.remove(x)
+					return x
+					break
+		else:
+			return None

@@ -171,7 +171,7 @@ def get_current_holdings(token, game):
 	for x,y in zip(trs, tds):
 		o = Stock(x['data-symbol'], x['data-ticker'],
 			  x['data-insttype'], float(x['data-price']),
-			  float(x['data-shares']), x['data-type'],
+			  int(x['data-shares'].split('.')[0]), x['data-type'],
 			  float(re.sub("\r\n\t*", "", y.contents[0]). \
 			  replace(',','')) #TODO: incl purchase price
 			 )
@@ -263,12 +263,15 @@ def get_portfolio_data(token, game):
 	"""
 	s = requests.Session()
 	portfolio_url = "http://www.marketwatch.com/game/%s/portfolio" % game
-	r = BeautifulSoup(s.get(portfolio_url, cookies=token).text)
-	time = datetime.strptime(r.headers['date'],'%a, %d %b %Y %H:%M:%S %Z')
+	d = s.get(portfolio_url, cookies=token)
+	r = BeautifulSoup(d.text)
+	time = datetime.strptime(d.headers['date'],'%a, %d %b %Y %H:%M:%S %Z')
 	time = time.replace(tzinfo=from_zone).astimezone(to_zone)
-	rank = int(r.find('p', {'class': 'rank'}).contents[0])
+	rank = r.find('p', {'class': 'rank'}).contents[0]
+	if rank != '--':
+		rank = int(rank)
 	data = r.find_all('span', {'class': 'data'})
-	data = [ float(re.sub('[^\d\.]', '', x.contents[0])) for x in data ]
+	data = [ float(re.sub('[^-\d\.]', '', x.contents[0])) for x in data ]
 	data_keys = ['net_worth', 'overall_return_amount', 'overall_return_percent',
 		     'daily_return_percent', 'purchasing_power', 'cash_left',
 		     'cash_borrowed', 'short_reserve']
