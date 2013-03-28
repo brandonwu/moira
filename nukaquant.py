@@ -81,6 +81,7 @@ class LocalExtrema:
 	"""
 	def __init__(self, auto_period=False, period=20, max_period=100):
 		self.period = period
+		self.initialperiod = period
 		self.auto_period = auto_period
 		self.max_period = max_period
 		self.data = []
@@ -119,6 +120,10 @@ class LocalExtrema:
 		self._recalculate_extrema()
 		if self.auto_period:
 			self._auto_period()
+
+	def clear_data(self):
+		self.data = []
+		self.period = self.initialperiod
 
 class OrderQueue:
 	"""Trying this out. Don't use it yet.
@@ -192,3 +197,6 @@ class OrderQueue:
 					break
 		else:
 			return None
+
+	def clear_orders(self):
+		self.orderdata = []
