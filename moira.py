@@ -171,7 +171,7 @@ def get_current_holdings(token, game):
 	for x,y in zip(trs, tds):
 		o = Stock(x['data-symbol'], x['data-ticker'],
 			  x['data-insttype'], float(x['data-price']),
-			  int(x['data-shares'].split('.')[0]), x['data-type'],
+			  int(float(x['data-shares'])), x['data-type'],
 			  float(re.sub("\r\n\t*", "", y.contents[0]). \
 			  replace(',','')) #TODO: incl purchase price
 			 )
