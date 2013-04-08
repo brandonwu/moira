@@ -308,8 +308,8 @@ def order(token, game, type, id, amt):
 	if resp['succeeded'] == True:
 		logger.info('Order may have succeeded. Server said: %s' \
 			    % resp['message'])
-		return 0
+		return True, resp['message']
 	else:
 		logger.error('Order failed. Server said: %s' \
 			     % resp['message'])
-		return 1
+		return False, resp['message']
