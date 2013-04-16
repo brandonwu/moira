@@ -79,14 +79,16 @@ class LocalExtrema:
 	@ivar low: Predicted current low point
 	@ivar slope: Current price direction
 	"""
-	def __init__(self, auto_period=False, period=20, max_period=100):
+	def __init__(self, auto_period=False, period=20, max_period=100, dec_threshold=0.05):
 		self.period = period
 		self.initialperiod = period
 		self.auto_period = auto_period
 		self.max_period = max_period
+		self.dec_threshold = dec_threshold
 		self.data = []
 		self.high = 0
 		self.low = 0
+		self.ssto = 0
 
 	def _recalculate_extrema(self):
 		self.phigh = self.high
@@ -103,6 +105,9 @@ class LocalExtrema:
 			self.period += 1
 		if self.period >= self.max_period:
 			self.period = self.max_period
+		self.ssto = sum([abs(x) for x in self._derivatives])
+		if self.ssto > self.dec_threshold:
+			self.period -= 1
 
 	def _recalculate_derivatives(self):
 		datasub = self.data[1:-1]

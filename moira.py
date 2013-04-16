@@ -296,8 +296,8 @@ def order(token, game, type, id, amt):
 	@rtype: integer
 	"""
 	s = requests.Session()
-	order_url = 'http://www.marketwatch.com/game/msj-2013/trade/' \
-		    'submitorder?week=1'
+	order_url = 'http://www.marketwatch.com/game/%s/trade/' \
+		    'submitorder?week=1' % game
 	postdata = '['+json.dumps({'Fuid': id, 'Shares': str(amt), \
 				   'Type': type})+']'
 	headers = {'X-Requested-With': 'XMLHttpRequest',
