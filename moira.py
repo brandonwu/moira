@@ -129,7 +129,8 @@ def get_token(username, password, returnsession=False, s=requests.Session()):
 	}
 	s.get('http://www.marketwatch.com/')
 	s.post('https://secure.marketwatch.com/user/account/logon',
-		params=userdata)
+		data=userdata)
+	#TODO: Turn this into something that checks the cookiejar for .ASPXAUTH instead; this takes WAY too long.
 	if s.get('http://www.marketwatch.com/user/login/status').url == \
 		"http://www.marketwatch.com/my":
 		logger.info("Login success.")
