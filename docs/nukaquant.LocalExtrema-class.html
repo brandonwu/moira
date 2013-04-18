@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>moira.Stock</title>
+  <title>nukaquant.LocalExtrema</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -42,8 +42,8 @@
   <tr valign="top">
     <td width="100%">
       <span class="breadcrumbs">
-        <a href="moira-module.html">Module&nbsp;moira</a> ::
-        Class&nbsp;Stock
+        <a href="nukaquant-module.html">Module&nbsp;nukaquant</a> ::
+        Class&nbsp;LocalExtrema
       </span>
     </td>
     <td>
@@ -51,15 +51,16 @@
         <!-- hide/show private -->
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="moira.Stock-class.html"
+            >]&nbsp;|&nbsp;<a href="nukaquant.LocalExtrema-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Stock</h1><p class="nomargin-top"><span class="codelink"><a href="moira-pysrc.html#Stock">source&nbsp;code</a></span></p>
-<p>Stores portfolio data for a single stock.</p>
+<h1 class="epydoc">Class LocalExtrema</h1><p class="nomargin-top"><span class="codelink"><a href="nukaquant-pysrc.html#LocalExtrema">source&nbsp;code</a></span></p>
+<p>Attempts to find price pivot points over a given interval in a stream 
+  of data.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -75,21 +76,92 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="moira.Stock-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">id</span>,
-        <span class="summary-sig-arg">ticker</span>,
-        <span class="summary-sig-arg">security_type</span>,
-        <span class="summary-sig-arg">current_price</span>,
-        <span class="summary-sig-arg">shares</span>,
-        <span class="summary-sig-arg">purchase_type</span>,
-        <span class="summary-sig-arg">returns</span>)</span></td>
+          <td><span class="summary-sig"><a href="nukaquant.LocalExtrema-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">auto_period</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">period</span>=<span class="summary-sig-default">20</span>,
+        <span class="summary-sig-arg">max_period</span>=<span class="summary-sig-default">100</span>,
+        <span class="summary-sig-arg">dec_threshold</span>=<span class="summary-sig-default">0.05</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="moira-pysrc.html#Stock.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="nukaquant-pysrc.html#LocalExtrema.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
       </table>
       
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="add_value"></a><span class="summary-sig-name">add_value</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="nukaquant-pysrc.html#LocalExtrema.add_value">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="clear_data"></a><span class="summary-sig-name">clear_data</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="nukaquant-pysrc.html#LocalExtrema.clear_data">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== INSTANCE VARIABLES ==================== -->
+<a name="section-InstanceVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td align="left" colspan="2" class="table-header">
+    <span class="table-header">Instance Variables</span></td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="data"></a><span class="summary-name">data</span><br />
+      Current window of data inputted
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="high"></a><span class="summary-name">high</span><br />
+      Predicted current high point
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="low"></a><span class="summary-name">low</span><br />
+      Predicted current low point
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="slope"></a><span class="summary-name">slope</span><br />
+      Current price direction
     </td>
   </tr>
 </table>
@@ -110,17 +182,14 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">id</span>,
-        <span class="sig-arg">ticker</span>,
-        <span class="sig-arg">security_type</span>,
-        <span class="sig-arg">current_price</span>,
-        <span class="sig-arg">shares</span>,
-        <span class="sig-arg">purchase_type</span>,
-        <span class="sig-arg">returns</span>)</span>
+        <span class="sig-arg">auto_period</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">period</span>=<span class="sig-default">20</span>,
+        <span class="sig-arg">max_period</span>=<span class="sig-default">100</span>,
+        <span class="sig-arg">dec_threshold</span>=<span class="sig-default">0.05</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="moira-pysrc.html#Stock.__init__">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="nukaquant-pysrc.html#LocalExtrema.__init__">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
@@ -128,15 +197,13 @@
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>id</code></strong> - Unique ID assigned by Marketwatch to each security.</li>
-        <li><strong class="pname"><code>ticker</code></strong> - The ticker symbol of the stock.</li>
-        <li><strong class="pname"><code>security_type</code></strong> - &quot;ExchangeTradedFund&quot; or &quot;Stock&quot;</li>
-        <li><strong class="pname"><code>current_price</code></strong> - Current price per share, <i>rounded to the cent</i>.</li>
-        <li><strong class="pname"><code>shares</code></strong> - Number of shares held.</li>
-        <li><strong class="pname"><code>purchase_type</code></strong> - &quot;Buy&quot; or &quot;Short&quot;</li>
-        <li><strong class="pname"><code>returns</code></strong> - Total return on your investment. @see See the warnings at <a 
-          href="moira-module.html#get_current_holdings" 
-          class="link">get_current_holdings</a> about price rounding.</li>
+        <li><strong class="pname"><code>auto_period</code></strong> - If true, this dynamically increases the period to fit price 
+          cycles.</li>
+        <li><strong class="pname"><code>max_period</code></strong> - The max value that <code class="link">auto_period</code> will 
+          increase the period to.</li>
+        <li><strong class="pname"><code>period</code></strong> - Size of window for pivot point determination.</li>
+        <li><strong class="pname"><code>dec_threshold</code></strong> - Amount of change to happen before the window is decreased. Values
+          of 0.4-0.7 will work for volatile stocks.</li>
     </ul></dd>
   </dl>
 </td></tr></table>

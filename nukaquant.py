@@ -67,13 +67,16 @@ class Bollinger:
 
 class LocalExtrema:
 	"""Attempts to find price pivot points over a given interval
-	   in a stream of data.
+	in a stream of data.
 
 	@param auto_period: If true, this dynamically increases the
 			    period to fit price cycles.
 	@param max_period: The max value that L{auto_period} will increase
 			   the period to.
 	@param period: Size of window for pivot point determination.
+	@param dec_threshold: Amount of change to happen before the window
+			      is decreased. Values of 0.4-0.7 will work for
+			      volatile stocks.			
 	@ivar data: Current window of data inputted
 	@ivar high: Predicted current high point
 	@ivar low: Predicted current low point

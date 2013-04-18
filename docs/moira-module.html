@@ -112,7 +112,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="moira-module.html#get_current_holdings" class="summary-sig-name">get_current_holdings</a>(<span class="summary-sig-arg">token</span>,
-        <span class="summary-sig-arg">game</span>)</span><br />
+        <span class="summary-sig-arg">game</span>,
+        <span class="summary-sig-arg">s</span>=<span class="summary-sig-default">&lt;requests.sessions.Session object at 0x21c1190&gt;</span>)</span><br />
       Fetches and parses current holdings.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="moira-pysrc.html#get_current_holdings">source&nbsp;code</a></span>
@@ -132,7 +133,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="moira-module.html#get_portfolio_data" class="summary-sig-name">get_portfolio_data</a>(<span class="summary-sig-arg">token</span>,
-        <span class="summary-sig-arg">game</span>)</span><br />
+        <span class="summary-sig-arg">game</span>,
+        <span class="summary-sig-arg">s</span>=<span class="summary-sig-default">&lt;requests.sessions.Session object at 0x21c1910&gt;</span>)</span><br />
       Grabs portfolio data.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="moira-pysrc.html#get_portfolio_data">source&nbsp;code</a></span>
@@ -150,7 +152,9 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="moira-module.html#get_token" class="summary-sig-name">get_token</a>(<span class="summary-sig-arg">username</span>,
-        <span class="summary-sig-arg">password</span>)</span><br />
+        <span class="summary-sig-arg">password</span>,
+        <span class="summary-sig-arg">returnsession</span>=<span class="summary-sig-default">False</span>,
+        <span class="summary-sig-arg">s</span>=<span class="summary-sig-default">&lt;requests.sessions.Session object at 0x20d6950&gt;</span>)</span><br />
       Issues a login request.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="moira-pysrc.html#get_token">source&nbsp;code</a></span>
@@ -169,7 +173,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="moira-module.html#get_transaction_history" class="summary-sig-name">get_transaction_history</a>(<span class="summary-sig-arg">token</span>,
-        <span class="summary-sig-arg">game</span>)</span><br />
+        <span class="summary-sig-arg">game</span>,
+        <span class="summary-sig-arg">s</span>=<span class="summary-sig-default">&lt;requests.sessions.Session object at 0x21c1410&gt;</span>)</span><br />
       DOES NOT FUNCTION YET: Downloads and parses the list of past 
       transactions.</td>
           <td align="right" valign="top">
@@ -191,7 +196,8 @@
         <span class="summary-sig-arg">game</span>,
         <span class="summary-sig-arg">type</span>,
         <span class="summary-sig-arg">id</span>,
-        <span class="summary-sig-arg">amt</span>)</span><br />
+        <span class="summary-sig-arg">amt</span>,
+        <span class="summary-sig-arg">s</span>=<span class="summary-sig-default">&lt;requests.sessions.Session object at 0x21c1b90&gt;</span>)</span><br />
       Initiates a buy, sell, short, or cover order.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="moira-pysrc.html#order">source&nbsp;code</a></span>
@@ -210,7 +216,8 @@
         <tr>
           <td><span class="summary-sig"><a href="moira-module.html#stock_search" class="summary-sig-name">stock_search</a>(<span class="summary-sig-arg">token</span>,
         <span class="summary-sig-arg">game</span>,
-        <span class="summary-sig-arg">ticker</span>)</span><br />
+        <span class="summary-sig-arg">ticker</span>,
+        <span class="summary-sig-arg">s</span>=<span class="summary-sig-default">&lt;requests.sessions.Session object at 0x21c1690&gt;</span>)</span><br />
       Queries Marketwatch for stock price and ID of a given ticker symbol.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="moira-pysrc.html#stock_search">source&nbsp;code</a></span>
@@ -241,21 +248,21 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="ch"></a><span class="summary-name">ch</span> = <code title="&lt;logging.StreamHandler object at 0x1d6da90&gt;">&lt;logging.StreamHandler object at 0x1d6da90&gt;</code>
+        <a name="ch"></a><span class="summary-name">ch</span> = <code title="&lt;logging.StreamHandler object at 0x2065b10&gt;">&lt;logging.StreamHandler object at 0x2065b10&gt;</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="fh"></a><span class="summary-name">fh</span> = <code title="&lt;logging.FileHandler object at 0x1dde5d0&gt;">&lt;logging.FileHandler object at 0x1dde5d0&gt;</code>
+        <a name="fh"></a><span class="summary-name">fh</span> = <code title="&lt;logging.FileHandler object at 0x20d6650&gt;">&lt;logging.FileHandler object at 0x20d6650&gt;</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="formatter"></a><span class="summary-name">formatter</span> = <code title="&lt;logging.Formatter object at 0x1dde810&gt;">&lt;logging.Formatter object at 0x1dde810&gt;</code>
+        <a name="formatter"></a><span class="summary-name">formatter</span> = <code title="&lt;logging.Formatter object at 0x20d6890&gt;">&lt;logging.Formatter object at 0x20d6890&gt;</code>
     </td>
   </tr>
 <tr>
@@ -269,7 +276,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="logger"></a><span class="summary-name">logger</span> = <code title="&lt;logging.Logger object at 0x1d60f90&gt;">&lt;logging.Logger object at 0x1d60f90&gt;</code>
+        <a name="logger"></a><span class="summary-name">logger</span> = <code title="&lt;logging.Logger object at 0x2065050&gt;">&lt;logging.Logger object at 0x2065050&gt;</code>
     </td>
   </tr>
 <tr>
@@ -306,7 +313,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get_current_holdings</span>(<span class="sig-arg">token</span>,
-        <span class="sig-arg">game</span>)</span>
+        <span class="sig-arg">game</span>,
+        <span class="sig-arg">s</span>=<span class="sig-default">&lt;requests.sessions.Session object at 0x21c1190&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="moira-pysrc.html#get_current_holdings">source&nbsp;code</a></span>&nbsp;
@@ -346,7 +354,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get_portfolio_data</span>(<span class="sig-arg">token</span>,
-        <span class="sig-arg">game</span>)</span>
+        <span class="sig-arg">game</span>,
+        <span class="sig-arg">s</span>=<span class="sig-default">&lt;requests.sessions.Session object at 0x21c1910&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="moira-pysrc.html#get_portfolio_data">source&nbsp;code</a></span>&nbsp;
@@ -381,7 +390,9 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get_token</span>(<span class="sig-arg">username</span>,
-        <span class="sig-arg">password</span>)</span>
+        <span class="sig-arg">password</span>,
+        <span class="sig-arg">returnsession</span>=<span class="sig-default">False</span>,
+        <span class="sig-arg">s</span>=<span class="sig-default">&lt;requests.sessions.Session object at 0x20d6950&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="moira-pysrc.html#get_token">source&nbsp;code</a></span>&nbsp;
@@ -414,7 +425,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">get_transaction_history</span>(<span class="sig-arg">token</span>,
-        <span class="sig-arg">game</span>)</span>
+        <span class="sig-arg">game</span>,
+        <span class="sig-arg">s</span>=<span class="sig-default">&lt;requests.sessions.Session object at 0x21c1410&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="moira-pysrc.html#get_transaction_history">source&nbsp;code</a></span>&nbsp;
@@ -448,7 +460,8 @@
         <span class="sig-arg">game</span>,
         <span class="sig-arg">type</span>,
         <span class="sig-arg">id</span>,
-        <span class="sig-arg">amt</span>)</span>
+        <span class="sig-arg">amt</span>,
+        <span class="sig-arg">s</span>=<span class="sig-default">&lt;requests.sessions.Session object at 0x21c1b90&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="moira-pysrc.html#order">source&nbsp;code</a></span>&nbsp;
@@ -487,7 +500,8 @@
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">stock_search</span>(<span class="sig-arg">token</span>,
         <span class="sig-arg">game</span>,
-        <span class="sig-arg">ticker</span>)</span>
+        <span class="sig-arg">ticker</span>,
+        <span class="sig-arg">s</span>=<span class="sig-default">&lt;requests.sessions.Session object at 0x21c1690&gt;</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="moira-pysrc.html#stock_search">source&nbsp;code</a></span>&nbsp;
@@ -544,7 +558,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Tue Mar 19 16:15:01 2013
+    Generated by Epydoc 3.0.1 on Wed Apr 17 20:51:00 2013
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

@@ -109,7 +109,7 @@ class Trans():
 		self.trans_amt = trans_amt
 		self.exec_price = exec_price
 
-def get_token(username, password):
+def get_token(username, password, returnsession=False, s=requests.Session()):
 	"""Issues a login request. The token returned by this function
 	is required for all methods in this module.
 
@@ -127,19 +127,22 @@ def get_token(username, password):
 		"returnUrl": "/user/login/status",
 		"persist": "true"
 	}
-	s = requests.Session()
 	s.get('http://www.marketwatch.com/')
 	s.post('https://secure.marketwatch.com/user/account/logon',
 		params=userdata)
-	#TODO: Turn this into something that checks the cookiejar for .ASPXAUTH instead; this takes WAY too long.
 	if s.get('http://www.marketwatch.com/user/login/status').url == \
 		"http://www.marketwatch.com/my":
 		logger.info("Login success.")
 	else:
 		logger.warn("Auth failure.")
-	return s.cookies
 
-def get_current_holdings(token, game):
+	if returnsession:
+		return s.cookies, s#methods that take tokens can take sessions
+		#but the session is optional while the token is not
+	else:
+		return s.cookies
+
+def get_current_holdings(token, game, s=requests.Session()):
 	"""Fetches and parses current holdings.
 
 	@param token: Cookiejar returned by a call to L{get_token}.
@@ -154,7 +157,7 @@ def get_current_holdings(token, game):
 	"""
 	url = ("http://www.marketwatch.com/game/%s/portfolio/holdings"
 	"?view=list&partial=True") % game
-	p = requests.Session()
+	p = s
 	r = p.get(url, cookies=token)
 	time = r.headers['date']
 	response = r.text
@@ -181,7 +184,7 @@ def get_current_holdings(token, game):
 	#stock_dict['EXCHANGETRADEDFUND-XASQ-IXJ'].current_price
 	return stock_dict
 
-def get_transaction_history(token, game):
+def get_transaction_history(token, game, s=requests.Session()):
 	"""DOES NOT FUNCTION YET: Downloads and parses the list of past transactions.
 
 	@param token: Cookiejar returned by L{get_token}.
@@ -192,7 +195,6 @@ def get_transaction_history(token, game):
 	orders_url = ("http://www.marketwatch.com/game/msj-2013/portfolio/"
 		      "transactionhistory?sort=TransactionDate&descending="
 		      "True&partial=true&index=%s")
-	s = requests.Session()
 	soup = BeautifulSoup(s.get(orders_url, cookies=token).text)
 	total = int(soup.find('a',{'class':'fakebutton'})['href'].
 		split('&')[1].split('=')[1])
@@ -205,7 +207,7 @@ def get_transaction_history(token, game):
 		r = s.get(orders_url % i, token)
 		ordersoup = BeautifulSoup(r)
 
-def stock_search(token, game, ticker):
+def stock_search(token, game, ticker, s=requests.Session()):
 	"""Queries Marketwatch for stock price and ID of a given ticker symbol.
 
 	@note: You must have joined a game in order to use this function.
@@ -217,7 +219,6 @@ def stock_search(token, game, ticker):
 		'id':str,
 		'time':I{datetime} object in EST}.
 	"""
-	s = requests.Session()
 	search_url = 'http://www.marketwatch.com/game/%s/trade?week=1' % game
 	postdata = {'search': ticker, 'view': 'grid', 'partial': 'true'}
 	r = s.post(search_url, data=postdata, cookies=token)
@@ -249,7 +250,7 @@ def stock_search(token, game, ticker):
 		logger.debug(r.text)
 		pass
 
-def get_portfolio_data(token, game):
+def get_portfolio_data(token, game, s=requests.Session()):
 	"""Grabs portfolio data.
 
 	@param token: Cookiejar returned by L{get_token}.
@@ -261,7 +262,6 @@ def get_portfolio_data(token, game):
 	@note: I probably won't be making this return a L{Portfolio} object; it seems
 	       slightly redundant.
 	"""
-	s = requests.Session()
 	portfolio_url = "http://www.marketwatch.com/game/%s/portfolio" % game
 	d = s.get(portfolio_url, cookies=token)
 	r = BeautifulSoup(d.text)
@@ -279,7 +279,7 @@ def get_portfolio_data(token, game):
 	data.update({'rank': rank, 'time': time})
 	return data
 
-def order(token, game, type, id, amt):
+def order(token, game, type, id, amt, s=requests.Session()):
 	"""Initiates a buy, sell, short, or cover order.
 
 	@warning: If you have insufficient funds, the server will still
@@ -295,7 +295,6 @@ def order(token, game, type, id, amt):
 	@return: Returns integer - 0 if success, nonzero if failure.
 	@rtype: integer
 	"""
-	s = requests.Session()
 	order_url = 'http://www.marketwatch.com/game/%s/trade/' \
 		    'submitorder?week=1' % game
 	postdata = '['+json.dumps({'Fuid': id, 'Shares': str(amt), \

@@ -3,16 +3,22 @@
 \contentsline {subsection}{\numberline {1.1}Functions}{2}{subsection.1.1}
 \contentsline {subsection}{\numberline {1.2}Variables}{4}{subsection.1.2}
 \contentsline {subsection}{\numberline {1.3}Class Portfolio}{4}{subsection.1.3}
-\contentsline {subsubsection}{\numberline {1.3.1}Methods}{4}{subsubsection.1.3.1}
+\contentsline {subsubsection}{\numberline {1.3.1}Methods}{5}{subsubsection.1.3.1}
 \contentsline {subsection}{\numberline {1.4}Class Stock}{5}{subsection.1.4}
 \contentsline {subsubsection}{\numberline {1.4.1}Methods}{5}{subsubsection.1.4.1}
 \contentsline {subsection}{\numberline {1.5}Class Trans}{5}{subsection.1.5}
-\contentsline {subsubsection}{\numberline {1.5.1}Methods}{5}{subsubsection.1.5.1}
-\contentsline {section}{\numberline {2}Module nukaquant}{6}{section.2}
-\contentsline {subsection}{\numberline {2.1}Variables}{6}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Class Bollinger}{6}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Methods}{6}{subsubsection.2.2.1}
-\contentsline {subsection}{\numberline {2.3}Class MovingAverage}{6}{subsection.2.3}
-\contentsline {subsubsection}{\numberline {2.3.1}Methods}{6}{subsubsection.2.3.1}
-\contentsline {subsubsection}{\numberline {2.3.2}Instance Variables}{7}{subsubsection.2.3.2}
-\contentsline {section}{Index}{8}{section*.4}
+\contentsline {subsubsection}{\numberline {1.5.1}Methods}{6}{subsubsection.1.5.1}
+\contentsline {section}{\numberline {2}Module nukaquant}{7}{section.2}
+\contentsline {subsection}{\numberline {2.1}Variables}{7}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Class Bollinger}{7}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Methods}{7}{subsubsection.2.2.1}
+\contentsline {subsection}{\numberline {2.3}Class LocalExtrema}{7}{subsection.2.3}
+\contentsline {subsubsection}{\numberline {2.3.1}Methods}{7}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Instance Variables}{8}{subsubsection.2.3.2}
+\contentsline {subsection}{\numberline {2.4}Class MovingAverage}{8}{subsection.2.4}
+\contentsline {subsubsection}{\numberline {2.4.1}Methods}{8}{subsubsection.2.4.1}
+\contentsline {subsubsection}{\numberline {2.4.2}Instance Variables}{8}{subsubsection.2.4.2}
+\contentsline {subsection}{\numberline {2.5}Class OrderQueue}{8}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}Methods}{8}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}Instance Variables}{9}{subsubsection.2.5.2}
+\contentsline {section}{Index}{10}{section*.4}

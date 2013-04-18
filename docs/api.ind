@@ -4,7 +4,7 @@
 
   \indexspace
 
-  \item moira \textit{(module)}, \hyperpage{2--5}
+  \item moira \textit{(module)}, \hyperpage{2--6}
     \subitem moira.get\_current\_holdings \textit{(function)}, 
 		\hyperpage{2}
     \subitem moira.get\_portfolio\_data \textit{(function)}, 
@@ -13,30 +13,46 @@
     \subitem moira.get\_transaction\_history \textit{(function)}, 
 		\hyperpage{3}
     \subitem moira.order \textit{(function)}, \hyperpage{3}
-    \subitem moira.Portfolio \textit{(class)}, \hyperpage{4}
+    \subitem moira.Portfolio \textit{(class)}, \hyperpage{4--5}
       \subsubitem moira.Portfolio.\_\_init\_\_ \textit{(method)}, 
-		\hyperpage{4}
-    \subitem moira.Stock \textit{(class)}, \hyperpage{4--5}
+		\hyperpage{5}
+    \subitem moira.Stock \textit{(class)}, \hyperpage{5}
       \subsubitem moira.Stock.\_\_init\_\_ \textit{(method)}, 
 		\hyperpage{5}
     \subitem moira.stock\_search \textit{(function)}, \hyperpage{3}
-    \subitem moira.Trans \textit{(class)}, \hyperpage{5}
+    \subitem moira.Trans \textit{(class)}, \hyperpage{5--6}
       \subsubitem moira.Trans.\_\_init\_\_ \textit{(method)}, 
-		\hyperpage{5}
+		\hyperpage{6}
 
   \indexspace
 
   \item name, \hyperpage{2, 3}
-  \item nukaquant \textit{(module)}, \hyperpage{6--7}
-    \subitem nukaquant.Bollinger \textit{(class)}, \hyperpage{6}
+  \item nukaquant \textit{(module)}, \hyperpage{7--9}
+    \subitem nukaquant.Bollinger \textit{(class)}, \hyperpage{7}
       \subsubitem nukaquant.Bollinger.\_\_init\_\_ \textit{(method)}, 
-		\hyperpage{6}
+		\hyperpage{7}
       \subsubitem nukaquant.Bollinger.get\_bollinger \textit{(method)}, 
-		\hyperpage{6}
-    \subitem nukaquant.MovingAverage \textit{(class)}, \hyperpage{6--7}
+		\hyperpage{7}
+    \subitem nukaquant.LocalExtrema \textit{(class)}, \hyperpage{7--8}
+      \subsubitem nukaquant.LocalExtrema.\_\_init\_\_ \textit{(method)}, 
+		\hyperpage{7}
+      \subsubitem nukaquant.LocalExtrema.add\_value \textit{(method)}, 
+		\hyperpage{7}
+      \subsubitem nukaquant.LocalExtrema.clear\_data \textit{(method)}, 
+		\hyperpage{7}
+    \subitem nukaquant.MovingAverage \textit{(class)}, \hyperpage{8}
       \subsubitem nukaquant.MovingAverage.\_\_init\_\_ \textit{(method)}, 
-		\hyperpage{6}
+		\hyperpage{8}
       \subsubitem nukaquant.MovingAverage.add\_value \textit{(method)}, 
-		\hyperpage{6}
+		\hyperpage{8}
+    \subitem nukaquant.OrderQueue \textit{(class)}, \hyperpage{8--9}
+      \subsubitem nukaquant.OrderQueue.\_\_init\_\_ \textit{(method)}, 
+		\hyperpage{8}
+      \subsubitem nukaquant.OrderQueue.add\_order \textit{(method)}, 
+		\hyperpage{8}
+      \subsubitem nukaquant.OrderQueue.clear\_orders \textit{(method)}, 
+		\hyperpage{9}
+      \subsubitem nukaquant.OrderQueue.get\_latest\_order \textit{(method)}, 
+		\hyperpage{9}
 
 \end{theindex}

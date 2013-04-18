@@ -9,22 +9,33 @@
 \indexentry{moira \textit{(module)}!moira.order \textit{(function)}|hyperpage}{3}
 \indexentry{moira \textit{(module)}!moira.stock\_search \textit{(function)}|hyperpage}{3}
 \indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}|(hyperpage}{4}
-\indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}!moira.Portfolio.\_\_init\_\_ \textit{(method)}|hyperpage}{4}
-\indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}|)hyperpage}{4}
-\indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}|(hyperpage}{4}
+\indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}!moira.Portfolio.\_\_init\_\_ \textit{(method)}|hyperpage}{5}
+\indexentry{moira \textit{(module)}!moira.Portfolio \textit{(class)}|)hyperpage}{5}
+\indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}|(hyperpage}{5}
 \indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}!moira.Stock.\_\_init\_\_ \textit{(method)}|hyperpage}{5}
 \indexentry{moira \textit{(module)}!moira.Stock \textit{(class)}|)hyperpage}{5}
 \indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}|(hyperpage}{5}
-\indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}!moira.Trans.\_\_init\_\_ \textit{(method)}|hyperpage}{5}
-\indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}|)hyperpage}{5}
-\indexentry{moira \textit{(module)}|)hyperpage}{5}
-\indexentry{nukaquant \textit{(module)}|(hyperpage}{6}
-\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}|(hyperpage}{6}
-\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}!nukaquant.Bollinger.\_\_init\_\_ \textit{(method)}|hyperpage}{6}
-\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}!nukaquant.Bollinger.get\_bollinger \textit{(method)}|hyperpage}{6}
-\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}|)hyperpage}{6}
-\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}|(hyperpage}{6}
-\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}!nukaquant.MovingAverage.\_\_init\_\_ \textit{(method)}|hyperpage}{6}
-\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}!nukaquant.MovingAverage.add\_value \textit{(method)}|hyperpage}{6}
-\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}|)hyperpage}{7}
-\indexentry{nukaquant \textit{(module)}|)hyperpage}{7}
+\indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}!moira.Trans.\_\_init\_\_ \textit{(method)}|hyperpage}{6}
+\indexentry{moira \textit{(module)}!moira.Trans \textit{(class)}|)hyperpage}{6}
+\indexentry{moira \textit{(module)}|)hyperpage}{6}
+\indexentry{nukaquant \textit{(module)}|(hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}|(hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}!nukaquant.Bollinger.\_\_init\_\_ \textit{(method)}|hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}!nukaquant.Bollinger.get\_bollinger \textit{(method)}|hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}!nukaquant.Bollinger \textit{(class)}|)hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}!nukaquant.LocalExtrema \textit{(class)}|(hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}!nukaquant.LocalExtrema \textit{(class)}!nukaquant.LocalExtrema.\_\_init\_\_ \textit{(method)}|hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}!nukaquant.LocalExtrema \textit{(class)}!nukaquant.LocalExtrema.add\_value \textit{(method)}|hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}!nukaquant.LocalExtrema \textit{(class)}!nukaquant.LocalExtrema.clear\_data \textit{(method)}|hyperpage}{7}
+\indexentry{nukaquant \textit{(module)}!nukaquant.LocalExtrema \textit{(class)}|)hyperpage}{8}
+\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}|(hyperpage}{8}
+\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}!nukaquant.MovingAverage.\_\_init\_\_ \textit{(method)}|hyperpage}{8}
+\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}!nukaquant.MovingAverage.add\_value \textit{(method)}|hyperpage}{8}
+\indexentry{nukaquant \textit{(module)}!nukaquant.MovingAverage \textit{(class)}|)hyperpage}{8}
+\indexentry{nukaquant \textit{(module)}!nukaquant.OrderQueue \textit{(class)}|(hyperpage}{8}
+\indexentry{nukaquant \textit{(module)}!nukaquant.OrderQueue \textit{(class)}!nukaquant.OrderQueue.\_\_init\_\_ \textit{(method)}|hyperpage}{8}
+\indexentry{nukaquant \textit{(module)}!nukaquant.OrderQueue \textit{(class)}!nukaquant.OrderQueue.add\_order \textit{(method)}|hyperpage}{8}
+\indexentry{nukaquant \textit{(module)}!nukaquant.OrderQueue \textit{(class)}!nukaquant.OrderQueue.clear\_orders \textit{(method)}|hyperpage}{9}
+\indexentry{nukaquant \textit{(module)}!nukaquant.OrderQueue \textit{(class)}!nukaquant.OrderQueue.get\_latest\_order \textit{(method)}|hyperpage}{9}
+\indexentry{nukaquant \textit{(module)}!nukaquant.OrderQueue \textit{(class)}|)hyperpage}{9}
+\indexentry{nukaquant \textit{(module)}|)hyperpage}{9}
