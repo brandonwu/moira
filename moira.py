@@ -9,7 +9,7 @@ import logging
 import re #Regex to clean up parsed out numbers
 import json #Send/buy requests are JSON-encoded
 from datetime import datetime
-from datetime.parser import parse
+from dateutil.parser import parse
 from dateutil import tz
 from bs4 import BeautifulSoup
 
