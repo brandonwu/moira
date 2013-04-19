@@ -9,6 +9,7 @@ import logging
 import re #Regex to clean up parsed out numbers
 import json #Send/buy requests are JSON-encoded
 from datetime import datetime
+from datetime.parser import parse
 from dateutil import tz
 from bs4 import BeautifulSoup
 
@@ -160,7 +161,8 @@ def get_current_holdings(token, game, s=requests.Session()):
 	"?view=list&partial=True") % game
 	p = s
 	r = p.get(url, cookies=token)
-	time = r.headers['date']
+	time = parse(r.headers['date'])
+	time = time.replace(tzinfo=from_zone).astimezone(to_zone)
 	response = r.text
 	soup = BeautifulSoup(response)
 	#the trs in portf. page have stock data atributes in the tag
@@ -228,7 +230,7 @@ def stock_search(token, game, ticker, s=requests.Session()):
 			     % r.status_code)
 		return 1
 	soup = BeautifulSoup(r.text)
-	time = datetime.strptime(r.headers['date'],'%a, %d %b %Y %H:%M:%S %Z')
+	time = parse(r.headers['date'])
 	time = time.replace(tzinfo=from_zone).astimezone(to_zone)
 	try:
 		price = float(soup.find('div',{'class': 'chip'})['data-price'])
@@ -247,6 +249,7 @@ def stock_search(token, game, ticker, s=requests.Session()):
 		logger.debug(r.text)
 		pass
 	except Exception,e:
+		logger.error(repr(e))
 		logger.debug(r.headers)
 		logger.debug(r.text)
 		pass
