@@ -1,3 +1,9 @@
+<b>NOTE: Authentication changes by Marketwatch have broken this library.
+It is only provided for historical purposes.</b>
+
+Additional changes in the Virtual Stock Exchange game's trading limits have also rendered the platform as a whole ineffective for most automated
+trading purposes.
+
 MOIRA
 =====
 
