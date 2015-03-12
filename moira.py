@@ -121,16 +121,9 @@ def get_token(username, password, returnsession=False, s=requests.Session()):
 	       set to expire at end of session. It may be apt to request
 	       a new token daily, while the market is closed.
 	"""
-	userdata = {
-		"userName": username,
-		"password": password,
-		"remChk": "on",
-		"returnUrl": "/user/login/status",
-		"persist": "true"
-	}
-	s.get('http://www.marketwatch.com/')
-	s.post('https://secure.marketwatch.com/user/account/logon',
-		data=userdata)
+	s.get('http://www.marketwatch.com/') 
+	datata = s.get('https://id.marketwatch.com/auth/submitlogin.json',params={'username': username, 'password': password})
+	s.get(datata.json()['url'])
 	#TODO: Turn this into something that checks the cookiejar for .ASPXAUTH instead; this takes WAY too long.
 	if s.get('http://www.marketwatch.com/user/login/status').url == \
 		"http://www.marketwatch.com/my":
